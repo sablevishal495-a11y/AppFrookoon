@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './src/navigation/AppNavigator';
+import BottomTabs from './src/navigation/BottomTabs';
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
-const App = () => {
+
+export default function App() {
   return (
     <NavigationContainer>
-      <AppNavigator />
+      <BottomTabs />
     </NavigationContainer>
   );
-};
-
-export default App;
+}
