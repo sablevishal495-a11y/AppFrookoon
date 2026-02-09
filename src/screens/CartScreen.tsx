@@ -162,11 +162,20 @@ return (
       </ScrollView>
 
       {/* ---------- CHECKOUT ---------- */}
-      <TouchableOpacity style={styles.checkoutBtn}>
+      <TouchableOpacity
+        style={styles.checkoutBtn}
+        onPress={() =>
+          navigation.navigate('Checkout', {
+            totalAmount: totalAmount,
+          })
+        }
+      >
         <Text style={styles.checkoutText}>
           PROCEED TO CHECKOUT • ₹ {totalAmount}
         </Text>
       </TouchableOpacity>
+
+
     </View>
   );
 };
