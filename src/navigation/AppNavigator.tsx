@@ -8,7 +8,7 @@ import LocationScreen from '../screens/LocationScreen';
 import BottomTabs from './BottomTabs';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
-
+import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,11 @@ const AppNavigator = () => {
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="Location" component={LocationScreen} />
       <Stack.Screen name="Home" component={BottomTabs} />
+
+
+
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
+
 
 <Stack.Screen
   name="PaymentSuccess"

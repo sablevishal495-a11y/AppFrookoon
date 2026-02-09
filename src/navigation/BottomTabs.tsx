@@ -2,25 +2,31 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import HomeScreen from '../screens/HomeScreen';
-
-
-// If you have these screens, import them:
-// import CategoriesScreen from '../screens/CategoriesScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
 import CartScreen from '../screens/CartScreen';
-// import ProfileScreen from '../screens/ProfileScreen';
+import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator(); // ✅ missing before
 
-// Temporary placeholder screens until you create the real ones
-const CategoriesScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Categories Screen</Text>
-  </View>
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="HomeMain" component={HomeScreen} />
+    <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+  </Stack.Navigator>
+);
+const CategoriesStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="CategoriesMain" component={CategoriesScreen} />
+    <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+  </Stack.Navigator>
 );
 
 
-
+/* Temporary Profile screen */
 const ProfileScreen = () => (
   <View style={styles.container}>
     <Text style={styles.text}>Profile Screen</Text>
@@ -32,7 +38,7 @@ const BottomTabs = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarIcon: ({ color, size, focused }) => {
+        tabBarIcon: ({ color, focused }) => {
           let iconName = 'home';
 
           if (route.name === 'Home') {
@@ -47,8 +53,8 @@ const BottomTabs = () => {
 
           return <Icon name={iconName} size={24} color={color} />;
         },
-        tabBarActiveTintColor: '#007AFF', // Active tab color
-        tabBarInactiveTintColor: 'gray', // Inactive tab color
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: 'white',
           borderTopWidth: 1,
@@ -65,14 +71,12 @@ const BottomTabs = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
-        options={{ tabBarLabel: 'Home' }}
+        component={HomeStack}
       />
 
       <Tab.Screen
         name="Categories"
-        component={CategoriesScreen}
-        options={{ tabBarLabel: 'Categories' }}
+        component={CategoriesStack}
       />
 
       <Tab.Screen
@@ -95,7 +99,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
   },
   text: {
     fontSize: 24,
