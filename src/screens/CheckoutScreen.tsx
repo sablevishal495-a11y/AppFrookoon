@@ -96,12 +96,12 @@ const { totalAmount } = route.params as { totalAmount: number };
 
           <View style={styles.paymentRow}>
             <Text>Apple Pay</Text>
-            <Icon name="radio-button-off" size={18} color="#aaa" />
+            <Icon name="radio-button-on" size={18} color="#aaa" />
           </View>
 
           <View style={styles.paymentRow}>
             <Text>Paypal</Text>
-            <Icon name="radio-button-off" size={18} color="#aaa" />
+            <Icon name="radio-button-on" size={18} color="#aaa" />
           </View>
 
           <Text style={styles.addPayment}>Add +</Text>

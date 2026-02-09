@@ -23,6 +23,52 @@ type CartItem = {
   image: any;
 };
 
+const ALL_PRODUCTS: CartItem[] = [
+  {
+    id: 1,
+    name: 'MILK',
+    price: 30,
+    image: require('../assets/milk.png'),
+    quantity: 1,
+  },
+  {
+    id: 2,
+    name: 'AMUL CHEESE SLICE',
+    price: 88,
+    image: require('../assets/cheese.png'),
+    quantity: 1,
+  },
+  {
+    id: 3,
+    name: 'Brown Bread',
+    price: 35,
+    image: require('../assets/bread.png'),
+    quantity: 1,
+  },
+  {
+    id: 4,
+    name: 'Coca Cola',
+    price: 40,
+    image: require('../assets/coke.png'),
+    quantity: 1,
+  },
+  {
+    id: 5,
+    name: 'Haldiram Boondi',
+    price: 59,
+    image: require('../assets/boondi.png'),
+    quantity: 1,
+  },
+  {
+    id: 6,
+    name: 'Tata Sampann',
+    price: 135,
+    image: require('../assets/tata.png'),
+    quantity: 1,
+  },
+];
+
+
 /* ------------------ SCREEN ------------------ */
 const CartScreen = () => {
     const navigation = useNavigation<any>();
@@ -42,20 +88,7 @@ const CartScreen = () => {
       quantity: 1,
       image: require('../assets/cheese.png'),
     },
-{
-      id: 3,
-      name: 'Brown Bread',
-      price: 35,
-      quantity: 1,
-      image: require('../assets/bread.png'),
-    },
-{
-id: 4,
-      name: 'Coca Cola',
-      price: 40,
-      quantity: 1,
-      image: require('../assets/coke.png'),
-    },
+
   ]);
 
   const increaseQty = (id: number) => {
@@ -82,6 +115,11 @@ id: 4,
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+const similarProducts = ALL_PRODUCTS.filter(
+  product => !cartItems.some(cart => cart.id === product.id)
+);
+
 return (
   <View style={{ flex: 1, backgroundColor: '#fff' }}>
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -130,35 +168,30 @@ return (
         ))}
 
         {/* ---------- SIMILAR PRODUCTS ---------- */}
-        <Text style={styles.similarTitle}>Similar Product</Text>
 
-        <View style={styles.similarRow}>
-          <View style={styles.similarCard}>
-            <Image
-              source={require('../assets/boondi.png')}
-              style={styles.similarImage}
-            />
-            <Text style={styles.similarName}>HALDIRAM BOONDI</Text>
-            <Text style={styles.similarPrice}>₹ 59</Text>
 
-            <TouchableOpacity style={styles.addBtn}>
-              <Text style={styles.addText}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
+<Text style={styles.similarTitle}>Similar Product</Text>
 
-          <View style={styles.similarCard}>
-            <Image
-              source={require('../assets/tata.png')}
-              style={styles.similarImage}
-            />
-            <Text style={styles.similarName}>TATA SAMPANN</Text>
-            <Text style={styles.similarPrice}>₹ 135</Text>
+<ScrollView
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  contentContainerStyle={{ paddingHorizontal: 16 }}
+>
+  {similarProducts.map(item => (
+    <View key={item.id} style={styles.similarCard}>
+      <Image source={item.image} style={styles.similarImage} />
 
-            <TouchableOpacity style={styles.addBtn}>
-              <Text style={styles.addText}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+      <Text style={styles.similarName}>{item.name}</Text>
+      <Text style={styles.similarPrice}>₹ {item.price}</Text>
+
+      <TouchableOpacity style={styles.addBtn}>
+        <Text style={styles.addText}>Add to Cart</Text>
+      </TouchableOpacity>
+    </View>
+  ))}
+</ScrollView>
+
+
       </ScrollView>
 
       {/* ---------- CHECKOUT ---------- */}
@@ -275,19 +308,19 @@ headerText: {
 
   similarRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
   },
 
-  similarCard: {
-    width: '48%',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 12,
-    backgroundColor: '#F5F5F5',
-    padding: 10,
-    alignItems: 'center',
-  },
+ similarCard: {
+   width: 140,
+   borderWidth: 1,
+   borderColor: '#ddd',
+   borderRadius: 12,
+   backgroundColor: '#F5F5F5',
+   padding: 10,
+   alignItems: 'center',
+   marginRight: 12,
+ },
+
 
   similarImage: {
     width: 70,
