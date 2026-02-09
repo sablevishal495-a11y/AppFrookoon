@@ -88,7 +88,13 @@ const CartScreen = () => {
       quantity: 1,
       image: require('../assets/cheese.png'),
     },
-
+{
+    id: 3,
+    name: 'Brown Bread',
+    price: 35,
+    image: require('../assets/bread.png'),
+    quantity: 1,
+  },
   ]);
 
   const increaseQty = (id: number) => {
