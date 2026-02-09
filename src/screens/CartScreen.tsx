@@ -1,5 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Logo from '../components/Logo';
+
+
 import React, { useState } from 'react';
 import {
   View,
@@ -9,7 +12,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import Logo from '../components/Logo';
+
 
 /* ------------------ TYPES ------------------ */
 type CartItem = {
@@ -22,6 +25,8 @@ type CartItem = {
 
 /* ------------------ SCREEN ------------------ */
 const CartScreen = () => {
+    const navigation = useNavigation<any>();
+
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
@@ -77,17 +82,27 @@ id: 4,
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+return (
+  <View style={{ flex: 1, backgroundColor: '#fff' }}>
+    <ScrollView showsVerticalScrollIndicator={false}>
 
-  return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* ---------- HEADER ---------- */}
-        <View style={styles.headerColumn}>
-          <Logo size={45} />
-          <Text style={styles.headerText}>
-            My Cart ({cartItems.length})
-          </Text>
-        </View>
+      {/* ---------- LOGO ---------- */}
+      <View style={styles.logoWrapper}>
+        <Logo size={45} />
+      </View>
+
+      {/* ---------- BACK + CART TITLE ---------- */}
+      <View style={styles.headerRow}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+
+        <Text style={styles.headerText}>
+          My Cart ({cartItems.length})
+        </Text>
+      </View>
+
+
 
 
         {/* ---------- CART ITEMS ---------- */}
@@ -165,17 +180,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-  },
+logoWrapper: {
+  paddingHorizontal: 16,
+  paddingTop: 16,
+},
 
-  headerText: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginLeft: 12,
-  },
+headerRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 16,
+  marginBottom: 10,
+},
+
+headerText: {
+  fontSize: 18,
+  fontWeight: '700',
+  marginLeft: 12,
+},
+
 
   card: {
     flexDirection: 'row',
