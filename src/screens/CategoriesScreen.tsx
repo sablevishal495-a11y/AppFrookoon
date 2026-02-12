@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../context/CartContext';
+
 import {
   View,
   Text,
@@ -24,31 +26,31 @@ const categories = [
 
 const catalog = {
   Atta: [
-    { id: '1', name: 'Ashirvad Atta', price: '₹350', image: require('../assets/atta.png') },
-    { id: '2', name: 'Ashirvad Atta', price: '₹450', image: require('../assets/atta2.png') },
-    { id: '3', name: 'Ashirvad Atta', price: '₹550', image: require('../assets/atta.png') },
-    { id: '4', name: 'Ashirvad Atta', price: '₹650', image: require('../assets/atta2.png') },
-    { id: '5', name: 'Ashirvad Atta', price: '₹750', image: require('../assets/atta.png') },
-    { id: '6', name: 'Ashirvad Atta', price: '₹850', image: require('../assets/atta2.png') },
+    { id: '1', name: 'Ashirvad Atta', price: 350, image: require('../assets/atta.png') },
+    { id: '2', name: 'Ashirvad Atta', price: 450, image: require('../assets/atta2.png') },
+    { id: '3', name: 'Ashirvad Atta', price: 550, image: require('../assets/atta.png') },
+    { id: '4', name: 'Ashirvad Atta', price: 650, image: require('../assets/atta2.png') },
+    { id: '5', name: 'Ashirvad Atta', price: 750, image: require('../assets/atta.png') },
+    { id: '6', name: 'Ashirvad Atta', price: 850, image: require('../assets/atta2.png') },
   ],
 
   Rice: [
-    { id: '2', name: 'Rice Bag', price: '₹80', image: require('../assets/cat2.png') },
+    { id: '2', name: 'Rice Bag', price: 80, image: require('../assets/cat2.png') },
   ],
 
   Dal: [
-    { id: '3', name: 'Dal Pack', price: '₹60', image: require('../assets/cat3.png') },
+    { id: '3', name: 'Dal Pack', price: 60, image: require('../assets/cat3.png') },
   ],
 };
 
+
 const CategoriesScreen = () => {
   const [selectedCat, setSelectedCat] = useState('Atta');
-  const [cart, setCart] = useState([]);
-  const navigation = useNavigation();
 
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
-  };
+  const navigation = useNavigation();
+const { cartItems, addToCart } = useCart();
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -121,6 +123,8 @@ const CategoriesScreen = () => {
                 onPress={() =>
                   navigation.navigate('ProductDetails', { product: item })
                 }
+
+
               >
                 <View style={styles.imageWrap}>
                   <Image source={item.image} style={styles.productImg} />
@@ -129,14 +133,20 @@ const CategoriesScreen = () => {
                 <View style={styles.nameRow}>
                   <TouchableOpacity
                     style={styles.addBtnOverlay}
-                   onPress={() => addToCart(item)}
-
+                    onPress={(e) => {
+                      e.stopPropagation(); // ⬅️ THIS IS THE KEY LINE
+                      addToCart({
+                        ...item,
+                        quantity: 1,
+                      });
+                    }}
                   >
+
                     <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
                       ADD
                     </Text>
                   </TouchableOpacity>
-                </View>
+</View>
 
                 <Text style={styles.productName} numberOfLines={2}>
                   {item.name}
@@ -150,7 +160,7 @@ const CategoriesScreen = () => {
 
                 <Text style={styles.stockText}>Only 1 left</Text>
 
-                <Text style={styles.priceText}>{item.price}</Text>
+                <Text style={styles.priceText}>₹ {item.price}</Text>
               </TouchableOpacity>
             )}
           />
@@ -171,8 +181,9 @@ const CategoriesScreen = () => {
         <View style={{ flex: 1 }}>
           <Text style={styles.cartTitle}>View cart</Text>
           <Text style={styles.cartSub}>
-            {cart.length} item{cart.length !== 1 ? 's' : ''}
+            {cartItems.length} item{cartItems.length !== 1 ? 's' : ''}
           </Text>
+
         </View>
 
         <View style={styles.cartBtn}>
