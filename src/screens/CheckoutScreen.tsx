@@ -1,4 +1,6 @@
-import React from 'react';
+
+import React, { useState } from 'react';
+
 import { useRoute } from '@react-navigation/native';
 
 import {
@@ -7,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -20,8 +23,28 @@ const { totalAmount } = route.params as { totalAmount: number };
   const deliveryFee = 20;
   const discount = 30;
 
-  const finalTotal = totalAmount + deliveryFee - discount;
+const [selectedPayment, setSelectedPayment] = useState('visa');
+const [showExtraMethods, setShowExtraMethods] = useState(false);
 
+const defaultMethods = [
+  { key: 'visa', label: 'VISA •••• 9934' },
+      { key: 'apple', label: 'Apple Pay' },
+          { key: 'paypal', label: 'Paypal' },
+];
+
+const extraMethods = [
+  { key: 'upi', label: 'UPI' },
+  { key: 'gpay', label: 'Google Pay' },
+  { key: 'bharatpe', label: 'BharatPe' },
+];
+
+
+  const finalTotal = totalAmount + deliveryFee - discount;
+ const [address, setAddress] = useState(
+          '123 MG ROAD,\nBANGALURU, KA 560001'
+        );
+
+        const [isEditingAddress, setIsEditingAddress] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -45,15 +68,38 @@ const { totalAmount } = route.params as { totalAmount: number };
         </View>
 
         {/* ---------- DELIVERY ADDRESS ---------- */}
+
+
+
+
         <View style={styles.card}>
           <View style={styles.rowBetween}>
             <Text style={styles.cardTitle}>Delivery Address</Text>
-            <Text style={styles.editText}>EDIT</Text>
+           <TouchableOpacity onPress={() => setIsEditingAddress(true)}>
+             <Text style={styles.editText}>EDIT</Text>
+           </TouchableOpacity>
+
           </View>
 
-          <Text style={styles.addressText}>
-            123 MG ROAD,{'\n'}BANGALURU, KA 560001
-          </Text>
+          {isEditingAddress ? (
+            <>
+              <TextInput
+                style={styles.input}
+                multiline
+                value={address}
+                onChangeText={setAddress}
+              />
+              <TouchableOpacity
+                onPress={() => setIsEditingAddress(false)}
+                style={styles.saveBtn}
+              >
+                <Text style={{ color: '#fff' }}>Save</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <Text style={styles.addressText}>{address}</Text>
+          )}
+
         </View>
 
         {/* ---------- ORDER SUMMARY ---------- */}
@@ -89,23 +135,65 @@ const { totalAmount } = route.params as { totalAmount: number };
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Payment Method</Text>
 
-          <View style={styles.paymentRow}>
-            <Text>VISA •••• 9934</Text>
-            <Icon name="radio-button-on" size={18} color="#ff8c00" />
-          </View>
+          {/* Default Methods */}
+          {defaultMethods.map(method => (
+            <TouchableOpacity
+              key={method.key}
+              style={styles.paymentRow}
+              onPress={() => setSelectedPayment(method.key)}
+            >
+              <Text>{method.label}</Text>
 
-          <View style={styles.paymentRow}>
-            <Text>Apple Pay</Text>
-            <Icon name="radio-button-on" size={18} color="#aaa" />
-          </View>
+              <Icon
+                name={
+                  selectedPayment === method.key
+                    ? 'radio-button-on'
+                    : 'radio-button-off'
+                }
+                size={18}
+                color={
+                  selectedPayment === method.key ? '#ff8c00' : '#aaa'
+                }
+              />
+            </TouchableOpacity>
+          ))}
 
-          <View style={styles.paymentRow}>
-            <Text>Paypal</Text>
-            <Icon name="radio-button-on" size={18} color="#aaa" />
-          </View>
+          {/* Extra Methods (only show if Add+ clicked) */}
+          {showExtraMethods &&
+            extraMethods.map(method => (
+              <TouchableOpacity
+                key={method.key}
+                style={styles.paymentRow}
+                onPress={() => setSelectedPayment(method.key)}
+              >
+                <Text>{method.label}</Text>
 
-          <Text style={styles.addPayment}>Add +</Text>
+                <Icon
+                  name={
+                    selectedPayment === method.key
+                      ? 'radio-button-on'
+                      : 'radio-button-off'
+                  }
+                  size={18}
+                  color={
+                    selectedPayment === method.key ? '#ff8c00' : '#aaa'
+                  }
+                />
+              </TouchableOpacity>
+            ))}
+
+          {/* Add Button */}
+          {!showExtraMethods && (
+            <TouchableOpacity
+              onPress={() => setShowExtraMethods(true)}
+            >
+              <Text style={styles.addPayment}>Add +</Text>
+            </TouchableOpacity>
+          )}
         </View>
+
+
+
       </ScrollView>
 
       {/* ---------- PAYMENT BUTTON ---------- */}
@@ -179,6 +267,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
+input: {
+  backgroundColor: '#fff',
+  borderRadius: 8,
+  padding: 10,
+  marginTop: 8,
+  borderWidth: 1,
+  borderColor: '#ddd',
+},
+
+saveBtn: {
+  backgroundColor: '#ff8c00',
+  marginTop: 10,
+  padding: 8,
+  borderRadius: 8,
+  alignItems: 'center',
+},
+
 
   cardTitle: {
     fontSize: 14,

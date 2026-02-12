@@ -24,8 +24,8 @@ const deals = [
   { id: '2', name: 'Coca Cola', price: '₹40', image: require('../assets/coke.png') },
   { id: '3', name: 'Cleaning Pack', price: '₹199', image: require('../assets/cleaner.png') },
   { id: '4', name: 'Oil', price: '₹135', image: require('../assets/oil.png') },
-  { id: '5', name: 'Tomato', price: '40', image: require('../assets/tomato.png') },
-  { id: '6', name: 'Cucumber', price: '40', image: require('../assets/cucumber.png') },
+  { id: '5', name: 'Tomato', price: '₹40', image: require('../assets/tomato.png') },
+  { id: '6', name: 'Cucumber', price: '₹40', image: require('../assets/cucumber.png') },
 ];
 
 const HomeScreen = () => {
@@ -103,7 +103,6 @@ const HomeScreen = () => {
               >
                 <View>
                   <Text style={styles.categoryTitleText}>{item.title}</Text>
-                  <Text style={styles.startsAt}>Starts at</Text>
                 </View>
 
                 <View style={styles.imageBox}>
@@ -250,7 +249,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 0,
-    width: 55,
+    width: 75,
     height: 60,
     backgroundColor: '#e6c29f',
     justifyContent: 'center',
