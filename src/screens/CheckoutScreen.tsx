@@ -124,7 +124,7 @@ const extraMethods = [
         <View style={styles.divider} />
 
         <View style={styles.summaryRow}>
-          <Text style={styles.totalLabel}>Total</Text>
+          <Text style={styles.totalLabel}>Total </Text>
           <Text style={styles.totalAmount}>{finalTotal} Rs.</Text>
         </View>
 
