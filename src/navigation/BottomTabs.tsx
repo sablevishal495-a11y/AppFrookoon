@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CartScreen from '../screens/CartScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // ✅ missing before
@@ -26,12 +27,7 @@ const CategoriesStack = () => (
 );
 
 
-/* Temporary Profile screen */
-const ProfileScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Profile Screen</Text>
-  </View>
-);
+
 
 const BottomTabs = () => {
   return (
