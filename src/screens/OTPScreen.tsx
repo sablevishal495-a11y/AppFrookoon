@@ -112,7 +112,7 @@ const OTPScreen = () => {
           const enteredOtp = otp.join('');
 
           if (enteredOtp === '1234') {
-            navigation.replace('Location');
+            navigation.replace('CreateAccount');
           } else {
             setError(true);
           }

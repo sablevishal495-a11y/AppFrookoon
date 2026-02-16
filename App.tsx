@@ -5,6 +5,8 @@ import { CartProvider } from './src/context/CartContext';
 
 const App = () => {
   return (
+
+
      <CartProvider>
           <NavigationContainer>
             <AppNavigator />
