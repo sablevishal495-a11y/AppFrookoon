@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   FlatList,
+  Modal,
   ScrollView,
 } from 'react-native';
 
@@ -29,16 +30,20 @@ const deals = [
 ];
 
 const HomeScreen = () => {
+    const [menuVisible, setMenuVisible] = useState(false);
   const [showLocationPopup, setShowLocationPopup] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+
+
 
   return (
     <View style={styles.container}>
 
       {selectedCategory ? (
-        <View style={{ flex: 1, padding: 12 }}>
+        <View style={{ flex: 1, padding: 1 }}>
           <TouchableOpacity onPress={() => setSelectedCategory(null)}>
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>← Back</Text>
+            <Text style={{ fontSize: 16, marginBottom: 1 }}>← Back</Text>
           </TouchableOpacity>
 
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
@@ -61,7 +66,9 @@ const HomeScreen = () => {
                 </TouchableOpacity>
               </View>
             )}
+
           />
+
         </View>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -70,18 +77,25 @@ const HomeScreen = () => {
 
           <View style={styles.header}>
             <View>
-              <Text style={styles.time}>10 Minutes</Text>
-              <Text style={styles.address}>HOME - AMIT PATEL</Text>
+              <Text style={styles.time}>Welcome to FROOKOON !</Text>
+              <Text style={styles.address}>AMIT PATEL</Text>
             </View>
 
-            <TouchableOpacity style={styles.profile}>
-              <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>👤</Text>
-            </TouchableOpacity>
+<TouchableOpacity
+  style={styles.profile}
+  onPress={() => setMenuVisible(!menuVisible)}
+>
+  <Text style={{ color: '#ff7a00', fontSize: 22 }}>
+    {menuVisible ? '✕' : '☰'}
+  </Text>
+</TouchableOpacity>
+
+
           </View>
 
           <View style={styles.searchBar}>
             <TextInput placeholder="Search..." style={styles.searchInput} />
-            <Text style={styles.mic}>🎤</Text>
+            <Text style={styles.mic}>🎤 </Text>
           </View>
 
           <View style={styles.bannerWrapper}>
@@ -110,6 +124,9 @@ const HomeScreen = () => {
                 </View>
               </TouchableOpacity>
             )}
+
+
+
           />
 
           <Text style={styles.dealsTitle}>Top deals on bestsellers</Text>
@@ -133,7 +150,6 @@ const HomeScreen = () => {
         </ScrollView>
       )}
 
-      {/* LOCATION POPUP FIXED */}
       {showLocationPopup && (
         <View style={styles.locationSheet}>
           <View style={styles.dragHandle} />
@@ -171,6 +187,67 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
       )}
+
+<Modal
+  transparent
+  animationType="fade"
+  visible={menuVisible}
+  onRequestClose={() => setMenuVisible(false)}
+>
+  <View style={styles.menuOverlay}>
+
+    {/* Tap outside closes menu */}
+    <TouchableOpacity
+      style={{ flex: 1 }}
+      activeOpacity={1}
+      onPress={() => setMenuVisible(false)}
+    />
+
+    {/* Popup Card */}
+    <View style={styles.profileMenuCard}>
+
+    <TouchableOpacity
+      style={styles.closeBtn}
+      onPress={() => setMenuVisible(false)}
+    >
+      <Text style={{ color: '#fff', fontSize: 16 }}>✕</Text>
+    </TouchableOpacity>
+
+
+
+      <View style={styles.avatarCircle}>
+        <Text style={{ fontSize: 34, color: '#fff' }}>👤</Text>
+      </View>
+
+
+      <Text style={styles.profileName}>AMIT PATEL</Text>
+
+      <View style={styles.divider} />
+
+
+      <TouchableOpacity style={styles.menuButton}>
+        <Text style={styles.menuButtonText}>👤   Profile</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.menuButton}>
+        <Text style={styles.menuButtonText}>📦   My Orders</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.menuButton}>
+        <Text style={[styles.menuButtonText, { color: 'red' }]}>
+          🔐   Log Out
+        </Text>
+      </TouchableOpacity>
+
+    </View>
+  </View>
+</Modal>
+
+
+
+
 
     </View>
   );
@@ -328,4 +405,136 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 6,
   },
+
+
+
+popupOverlay: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.3)',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  paddingTop: 10,
+  paddingRight: 10,
+},
+
+
+popupCard: {
+  width: 260,
+  backgroundColor: '#fff',
+  borderRadius: 20,
+  padding: 18,
+  elevation: 8,
+},
+
+
+profileCircle: {
+  width: 70,
+  height: 70,
+  borderRadius: 35,
+  backgroundColor: '#000',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginBottom: 10,
+},
+
+popupName: {
+  fontWeight: 'bold',
+  marginBottom: 10,
+},
+
+divider: {
+  width: '100%',
+  height: 1,
+  backgroundColor: '#ccc',
+  marginVertical: 10,
+},
+
+popupBtn: {
+  width: '100%',
+  padding: 12,
+  borderRadius: 12,
+  backgroundColor: '#f2f2f2',
+  alignItems: 'center',
+  marginTop: 10,
+  elevation: 2,
+},
+
+closeBtn: {
+  position: 'absolute',
+  right: 10,
+  top: 10,
+  backgroundColor: '#000',
+  width: 30,
+  height: 30,
+  borderRadius: 15,
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 10,
+},
+
+
+
+profileMenuCard: {
+  position: 'absolute',
+  top: 32,
+  right: 12,
+  width: 300,
+  backgroundColor: '#fff',
+  borderRadius: 22,
+  padding: 20,
+  elevation: 10,
+  alignItems: 'center',
+},
+
+
+
+
+avatarCircle: {
+  width: 90,
+  height: 90,
+  borderRadius: 45,
+  backgroundColor: '#000',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 10,
+},
+
+profileName: {
+  marginTop: 12,
+  fontSize: 18,
+  fontWeight: 'bold',
+  color: '#ff7a00',
+},
+
+divider: {
+  width: '100%',
+  height: 1,
+  backgroundColor: '#ccc',
+  marginVertical: 15,
+},
+
+menuButton: {
+  width: '100%',
+  backgroundColor: '#f2f2f2',
+  padding: 14,
+  borderRadius: 14,
+  marginVertical: 6,
+  elevation: 3,
+},
+
+menuButtonText: {
+  fontSize: 16,
+  fontWeight: '600',
+  textAlign: 'center',
+},
+
+menuOverlay: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.25)',
+},
+
+
+
+
+
 });
