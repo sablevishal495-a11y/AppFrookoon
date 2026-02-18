@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -33,6 +34,8 @@ const HomeScreen = () => {
     const [menuVisible, setMenuVisible] = useState(false);
   const [showLocationPopup, setShowLocationPopup] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const navigation = useNavigation<any>();
+
 
 
 
@@ -225,9 +228,16 @@ const HomeScreen = () => {
       <View style={styles.divider} />
 
 
-      <TouchableOpacity style={styles.menuButton}>
+      <TouchableOpacity
+        style={styles.menuButton}
+        onPress={() => {
+          setMenuVisible(false);
+          navigation.navigate('Profile');
+        }}
+      >
         <Text style={styles.menuButtonText}>👤   Profile</Text>
       </TouchableOpacity>
+
 
 
       <TouchableOpacity style={styles.menuButton}>
