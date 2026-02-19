@@ -43,7 +43,7 @@ const [phone, setPhone] = useState('');
      <View
        style={[
          styles.bottomPanel,
-         { height: expanded ? SCREEN_HEIGHT * 0.50 : 220 },
+         { height: expanded ? SCREEN_HEIGHT * 0.55 : 230 },
        ]}
      >
 
