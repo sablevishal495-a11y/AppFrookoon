@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import ShopsScreen from '../screens/ShopsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CartScreen from '../screens/CartScreen';
@@ -55,7 +55,7 @@ const BottomTabs = () => {
           backgroundColor: 'white',
           borderTopWidth: 1,
           borderTopColor: '#e0e0e0',
-          height: 60,
+          height: 70,
           paddingBottom: 10,
           paddingTop: 5,
         },
@@ -74,6 +74,40 @@ const BottomTabs = () => {
         name="Categories"
         component={CategoriesStack}
       />
+
+<Tab.Screen
+  name="Shops"
+  component={ShopsScreen}
+  options={{
+    tabBarLabel: 'Shops',
+    tabBarIcon: ({ focused }) => (
+      <View
+        style={{
+          top: -15,
+          width: 55,
+          height: 55,
+          borderRadius: 27.5,
+          backgroundColor: focused ? '#007AFF' : 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 1,
+          borderColor: focused ? '#007AFF' : '#E0E0E0',
+          elevation: 8,
+          shadowColor: '#000',
+          shadowOpacity: 0.2,
+          shadowRadius: 5,
+          shadowOffset: { width: 0, height: 3 },
+        }}
+      >
+        <Icon
+          name="storefront"
+          size={24}
+          color={focused ? '#fff' : 'gray'}
+        />
+      </View>
+    ),
+  }}
+/>
 
       <Tab.Screen
         name="Cart"
