@@ -14,24 +14,65 @@ import {
 } from 'react-native';
 
 const categories = [
-  { id: '1', title: 'Atta, Rice & Dals', image: require('../assets/cat1.png') },
-  { id: '2', title: 'Green Snacks & Chips', image: require('../assets/cat2.png') },
-  { id: '3', title: 'Munchies & Snacks', image: require('../assets/cat3.png') },
-  { id: '4', title: 'Oils, Spices & Dryfruits', image: require('../assets/cat4.png') },
-  { id: '5', title: 'Cold drinks & juices', image: require('../assets/cat5.png') },
-  { id: '6', title: 'Beauty & Cosmatics', image: require('../assets/cat99.png') },
+  { id: 'a1', title: 'Atta, Rice & Dals', image: require('../assets/cat1.png') },
+  { id: 'a2', title: 'Green Snacks & Chips', image: require('../assets/cat2.png') },
+  { id: 'a3', title: 'Munchies & Snacks', image: require('../assets/cat3.png') },
+  { id: 'a4', title: 'Oils, Spices & Dryfruits', image: require('../assets/cat4.png') },
+  { id: 'a5', title: 'Cold drinks & juices', image: require('../assets/cat5.png') },
+  { id: 'a6', title: 'Beauty & Cosmatics', image: require('../assets/cat99.png') },
 ];
 
 const deals = [
-  { id: '1', name: 'Ashirwad Atta', price: '₹350', image: require('../assets/atta.png') },
-  { id: '2', name: 'Ashirwad Atta', price: '₹400', image: require('../assets/atta2.png') },
-  { id: '3', name: 'Dal', price: '₹199', image: require('../assets/dal.png') },
-  { id: '4', name: 'dal', price: '₹135', image: require('../assets/dal.png') },
-  { id: '5', name: 'Rice', price: '₹400', image: require('../assets/rice.png') },
-  { id: '6', name: 'Rice', price: '₹40', image: require('../assets/rice.png') },
+  { id: 'd1', name: 'Ashirwad Atta', price: '₹350', image: require('../assets/atta.png') },
+  { id: 'd2', name: 'Ashirwad Atta', price: '₹400', image: require('../assets/atta2.png') },
+  { id: 'd3', name: 'Dal', price: '₹199', image: require('../assets/dal.png') },
+  { id: 'd4', name: 'dal', price: '₹135', image: require('../assets/dal.png') },
+  { id: 'd5', name: 'Rice', price: '₹400', image: require('../assets/rice.png') },
+  { id: 'd6', name: 'Rice', price: '₹40', image: require('../assets/rice.png') },
 ];
 
-const HomeScreen = () => {
+const productsByCategory = {
+  "Atta, Rice & Dals": [
+    { id: 'c1', name: 'Aashirvaad Atta', price: '₹350', image: require('../assets/atta.png') },
+    { id: 'c2', name: 'Basmati Rice', price: '₹400', image: require('../assets/rice.png') },
+    { id: 'c3', name: 'Toor Dal', price: '₹199', image: require('../assets/dal.png') },
+  ],
+
+  "Green Snacks & Chips": [
+    { id: 's4', name: 'Lays Classic', price: '₹20', image: require('../assets/lays.png') },
+    { id: 's5', name: 'Kurkure', price: '₹20', image: require('../assets/kurkure.png') },
+    { id: 's6', name: 'Bingo', price: '₹25', image: require('../assets/bingo.png') },
+  ],
+
+  "Cold drinks & juices": [
+    { id: 'f7', name: 'Coca Cola', price: '₹40', image: require('../assets/coke.png') },
+    { id: 'f8', name: 'Pepsi', price: '₹40', image: require('../assets/pepsi.png') },
+    { id: 'f9', name: 'Real Juice', price: '₹99', image: require('../assets/juice.png') },
+  ],
+
+  "Beauty & Cosmatics": [
+    { id: 'j10', name: 'Face Wash', price: '₹120', image: require('../assets/facewash.png') },
+    { id: 'j11', name: 'Shampoo', price: '₹180', image: require('../assets/shampoo.png') },
+  ],
+
+  "Munchies & Snacks":[
+      { id:'k11', name: 'Munchies', price:'40', image: require('../assets/cart3.png')},
+      {id: 'k12', name: 'Kurkure', price: '₹20', image: require('../assets/kurkure.png') },
+      {id: 'k13', name: 'Bingo', price: '₹25', image: require('../assets/bingo.png') },
+      {id: 'k14', name: 'Lays Classic', price:'₹20',image: require('../assets/lays.png') },
+      {id: 'k15', name: 'Munchies', price: '₹40', image: require('../assets/munchies2.png') },
+      ],
+  "Oils, Spices & Dryfruits":[
+      {id: 'm16', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm17', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm18', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm19', name: 'Spices', price: '₹50', image: require('../assets/spices.png')}
+      ],
+
+}
+
+
+  const HomeScreen = () => {
   const navigation = useNavigation();
   const { cartItems, addToCart } = useCart();
 
@@ -46,7 +87,7 @@ const HomeScreen = () => {
 
   const handleAdd = (item: any) => {
     addToCart({
-      id: Number(item.id),
+      id: item.id,
       name: item.name,
       price: Number(item.price.replace('₹', '')),
       image: item.image,
@@ -86,13 +127,21 @@ return (
 
         {/* PRODUCTS */}
         <FlatList
-          data={deals}
+          data={productsByCategory[selectedCategory] || []}
+
           keyExtractor={(item) => item.id}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           contentContainerStyle={{ paddingBottom: 140 }}
           renderItem={({ item }) => (
-            <View style={styles.productCardNew}>
+           <TouchableOpacity
+             style={styles.productCardNew}
+             activeOpacity={0.9}
+             onPress={() =>
+               navigation.navigate('ProductDetails', { product: item })
+             }
+           >
+
               <Image source={item.image} style={styles.productImgNew} />
 
               <Text style={styles.productName}>{item.name}</Text>
@@ -110,7 +159,7 @@ return (
                   <Text style={styles.addText}>ADD</Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
 
@@ -185,7 +234,7 @@ return (
 
         <FlatList
           data={categories}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) => item.id + index}
           numColumns={3}
           scrollEnabled={false}
           contentContainerStyle={{ paddingHorizontal: 14 }}
@@ -210,7 +259,7 @@ return (
         </Text>
 
         <FlatList
-          data={deals}
+         data={deals}
           keyExtractor={(item) => item.id}
           numColumns={3}
           scrollEnabled={false}
