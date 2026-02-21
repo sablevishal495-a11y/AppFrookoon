@@ -4,148 +4,216 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
   const navigation = useNavigation<any>();
 
-  const menuItems = [
-    { title: 'My Profile', icon: 'person-outline' },
-    { title: 'My Orders', icon: 'cube-outline' },
-    { title: 'Change Language', icon: 'language-outline' },
-    { title: 'Online Ordering Help', icon: 'help-circle-outline' },
-  ];
-
   return (
     <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* ---------- HEADER ---------- */}
+        {/* ---------- HEADER ---------- */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name="chevron-back" size={26} color="#000" />
+          </TouchableOpacity>
 
-      {/* ---------------- HEADER SECTION ---------------- */}
-      <View style={styles.header}>
+          <Text style={styles.headerTitle}>Profile</Text>
 
-        {/* Back */}
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-back" size={22} color="#000" />
-        </TouchableOpacity>
-
-        <Text style={styles.headerTitle}>Profile</Text>
-
-        {/* Avatar */}
-        <View style={styles.avatarCircle}>
-          <Icon name="person" size={40} color="#fff" />
+          <TouchableOpacity
+            style={styles.cartCircle}
+            onPress={() => navigation.navigate('Cart')}
+          >
+            <Icon name="cart-outline" size={20} color="#ff7a00" />
+          </TouchableOpacity>
         </View>
 
-        <Text style={styles.userName}>Amit Patel</Text>
-        <Text style={styles.phone}>+91-XXXXXXXXXX</Text>
-      </View>
 
-      {/* ---------------- WHITE CARD SECTION ---------------- */}
-      <View style={styles.cardContainer}>
-        <Text style={styles.sectionTitle}>Account Overview</Text>
+        {/* ---------- PROFILE INFO ---------- */}
+        <View style={styles.profileSection}>
+          <View style={styles.avatar}>
+            <Text style={{ fontSize: 38 }}>👤</Text>
+          </View>
 
-        {menuItems.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.menuCard}>
+          <Text style={styles.name}>Amit Patel</Text>
+          <Text style={styles.email}>amitpatel@gmail.com</Text>
+        </View>
 
-            <View style={styles.menuLeft}>
-              <View style={styles.iconCircle}>
-                <Icon name={item.icon} size={20} color="#ff8c00" />
-              </View>
+        {/* ---------- QUICK ACTIONS ---------- */}
+        <View style={styles.quickRow}>
+          <QuickButton icon="notifications-outline" label="Notification" />
+          <QuickButton icon="pricetag-outline" label="Voucher" />
+          <QuickButton icon="time-outline" label="History" />
+        </View>
 
-              <Text style={styles.menuText}>{item.title}</Text>
-            </View>
+        {/* ---------- MENU ITEMS ---------- */}
+        <MenuItem
+          icon="create-outline"
+          title="Edit Profile"
+        />
 
-            <View style={styles.arrowCircle}>
-              <Icon name="chevron-forward" size={18} color="#000" />
-            </View>
+        <MenuItem
+          icon="location-outline"
+          title="Address Management"
+        />
 
-          </TouchableOpacity>
-        ))}
+        <MenuItem
+          icon="help-circle-outline"
+          title="Help & Support"
+        />
 
-      </View>
+        <MenuItem
+          icon="log-out-outline"
+          title="Log Out"
+          danger
+        />
+
+        <View style={{ height: 40 }} />
+      </ScrollView>
     </View>
   );
 };
 
 export default ProfileScreen;
 
+const QuickButton = ({
+  icon,
+  label,
+}: {
+  icon: string;
+  label: string;
+}) => (
+  <TouchableOpacity style={styles.quickButton}>
+    <Icon name={icon} size={22} color="#ff7a00" />
+    <Text style={styles.quickLabel}>{label}</Text>
+  </TouchableOpacity>
+);
+const MenuItem = ({
+  icon,
+  title,
+  danger = false,
+}: {
+  icon: string;
+  title: string;
+  danger?: boolean;
+}) => (
+  <TouchableOpacity style={styles.menuItem}>
+    <View style={styles.menuLeft}>
+      <Icon
+        name={icon}
+        size={22}
+        color={danger ? 'red' : '#ff7a00'}
+      />
+      <Text
+        style={[
+          styles.menuText,
+          danger && { color: 'red' },
+        ]}
+      >
+        {title}
+      </Text>
+    </View>
 
+    <Icon name="chevron-forward" size={22} color="#999" />
+  </TouchableOpacity>
+);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5c77c',
+    backgroundColor: '#f4f4f4',
   },
 
-  /* HEADER */
-  header: {
-    paddingTop: 60,
-    paddingBottom: 40,
+header: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingHorizontal: 20,
+  paddingTop: 40,   // 👈 more top spacing
+  paddingBottom: 10,
+},
+
+headerTitle: {
+  fontSize: 22,
+  fontWeight: '900',   // 👈 more bold
+  letterSpacing: 0.5,
+},
+cartCircle: {
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: '#fff',
+  justifyContent: 'center',
+  alignItems: 'center',
+  elevation: 4,
+},
+
+  profileSection: {
     alignItems: 'center',
+    marginTop: 10,
   },
 
-  backBtn: {
-    position: 'absolute',
-    left: 20,
-    top: 60,
-  },
-
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    marginBottom: 20,
-  },
-
-  avatarCircle: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+  avatar: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
     backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
   },
 
-  userName: {
+  name: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#ff8c00',
+    marginTop: 12,
+    color: '#ff7a00',
   },
 
-  phone: {
+  email: {
     fontSize: 14,
-    color: '#000',
+    color: '#666',
     marginTop: 4,
   },
 
-  /* CARD SECTION */
-  cardContainer: {
+  quickRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginTop: 24,
+  },
+
+  quickButton: {
     flex: 1,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingTop: 20,
-    paddingHorizontal: 16,
+    marginHorizontal: 6,
+    paddingVertical: 18,
+    borderRadius: 16,
+    alignItems: 'center',
+    elevation: 4,
   },
 
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    marginBottom: 16,
+  quickLabel: {
+    marginTop: 6,
+    fontSize: 12,
+    fontWeight: '600',
   },
 
-  menuCard: {
-    backgroundColor: '#f7f7f7',
-    borderRadius: 14,
-    padding: 14,
+  menuItem: {
+    backgroundColor: '#fff',
+    marginHorizontal: 20,
+    marginTop: 16,
+    padding: 18,
+    borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 14,
-    elevation: 2,
+    elevation: 4,
   },
 
   menuLeft: {
@@ -153,28 +221,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  iconCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#fff2e6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-
   menuText: {
+    marginLeft: 12,
     fontSize: 15,
     fontWeight: '600',
-  },
-
-  arrowCircle: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
