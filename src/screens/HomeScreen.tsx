@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../context/CartContext';
 import {
   View,
   Text,
@@ -12,245 +14,362 @@ import {
 } from 'react-native';
 
 const categories = [
-  { id: '1', title: 'Atta, Rice & Dals', image: require('../assets/cat1.png') },
-  { id: '2', title: 'Green Snacks & Chips', image: require('../assets/cat2.png') },
-  { id: '3', title: 'Munchies & Snacks', image: require('../assets/cat3.png') },
-  { id: '4', title: 'Oils, Spices & Dryfruits', image: require('../assets/cat4.png') },
-  { id: '5', title: 'Cold drinks & juices', image: require('../assets/cat5.png') },
-  { id: '6', title: 'Atta, Rice & Dals', image: require('../assets/cat1.png') },
+  { id: 'a1', title: 'Atta, Rice & Dals', image: require('../assets/cat1.png') },
+  { id: 'a2', title: 'Green Snacks & Chips', image: require('../assets/cat2.png') },
+  { id: 'a3', title: 'Munchies & Snacks', image: require('../assets/cat3.png') },
+  { id: 'a4', title: 'Oils, Spices & Dryfruits', image: require('../assets/cat4.png') },
+  { id: 'a5', title: 'Cold drinks & juices', image: require('../assets/cat5.png') },
+  { id: 'a6', title: 'Beauty & Cosmatics', image: require('../assets/cat99.png') },
 ];
 
 const deals = [
-  { id: '1', name: 'Brown Bread', price: '₹35', image: require('../assets/bread.png') },
-  { id: '2', name: 'Coca Cola', price: '₹40', image: require('../assets/coke.png') },
-  { id: '3', name: 'Cleaning Pack', price: '₹199', image: require('../assets/cleaner.png') },
-  { id: '4', name: 'Oil', price: '₹135', image: require('../assets/oil.png') },
-  { id: '5', name: 'Tomato', price: '₹40', image: require('../assets/tomato.png') },
-  { id: '6', name: 'Cucumber', price: '₹40', image: require('../assets/cucumber.png') },
+  { id: 'd1', name: 'Ashirwad Atta', price: '₹350', image: require('../assets/atta.png') },
+  { id: 'd2', name: 'Ashirwad Atta', price: '₹400', image: require('../assets/atta2.png') },
+  { id: 'd3', name: 'Dal', price: '₹199', image: require('../assets/dal.png') },
+  { id: 'd4', name: 'dal', price: '₹135', image: require('../assets/dal.png') },
+  { id: 'd5', name: 'Rice', price: '₹400', image: require('../assets/rice.png') },
+  { id: 'd6', name: 'Rice', price: '₹40', image: require('../assets/rice.png') },
 ];
 
-const HomeScreen = () => {
-    const [menuVisible, setMenuVisible] = useState(false);
+const productsByCategory = {
+  "Atta, Rice & Dals": [
+    { id: 'c1', name: 'Aashirvaad Atta', price: '₹350', image: require('../assets/atta.png') },
+    { id: 'c2', name: 'Basmati Rice', price: '₹400', image: require('../assets/rice.png') },
+    { id: 'c3', name: 'Toor Dal', price: '₹199', image: require('../assets/dal.png') },
+  ],
+
+  "Green Snacks & Chips": [
+    { id: 's4', name: 'Lays Classic', price: '₹20', image: require('../assets/lays.png') },
+    { id: 's5', name: 'Kurkure', price: '₹20', image: require('../assets/kurkure.png') },
+    { id: 's6', name: 'Bingo', price: '₹25', image: require('../assets/bingo.png') },
+  ],
+
+  "Cold drinks & juices": [
+    { id: 'f7', name: 'Coca Cola', price: '₹40', image: require('../assets/coke.png') },
+    { id: 'f8', name: 'Pepsi', price: '₹40', image: require('../assets/pepsi.png') },
+    { id: 'f9', name: 'Real Juice', price: '₹99', image: require('../assets/juice.png') },
+  ],
+
+  "Beauty & Cosmatics": [
+    { id: 'j10', name: 'Face Wash', price: '₹120', image: require('../assets/facewash.png') },
+    { id: 'j11', name: 'Shampoo', price: '₹180', image: require('../assets/shampoo.png') },
+  ],
+
+  "Munchies & Snacks":[
+      { id:'k11', name: 'Munchies', price:'40', image: require('../assets/cart3.png')},
+      {id: 'k12', name: 'Kurkure', price: '₹20', image: require('../assets/kurkure.png') },
+      {id: 'k13', name: 'Bingo', price: '₹25', image: require('../assets/bingo.png') },
+      {id: 'k14', name: 'Lays Classic', price:'₹20',image: require('../assets/lays.png') },
+      {id: 'k15', name: 'Munchies', price: '₹40', image: require('../assets/munchies2.png') },
+      ],
+  "Oils, Spices & Dryfruits":[
+      {id: 'm16', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm17', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm18', name: 'Oil', price: '₹120', image: require('../assets/oil2.png') },
+      {id: 'm19', name: 'Spices', price: '₹50', image: require('../assets/spices.png')}
+      ],
+
+}
+
+
+  const HomeScreen = () => {
+  const navigation = useNavigation();
+  const { cartItems, addToCart } = useCart();
+
+  const [menuVisible, setMenuVisible] = useState(false);
   const [showLocationPopup, setShowLocationPopup] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  const totalItems = cartItems.reduce(
+    (t, i) => t + (i.quantity || 1),
+    0
+  );
 
+  const handleAdd = (item: any) => {
+    addToCart({
+      id: item.id,
+      name: item.name,
+      price: Number(item.price.replace('₹', '')),
+      image: item.image,
+      quantity: 1,
+    });
+  };
 
-
-  return (
-    <View style={styles.container}>
-
-      {selectedCategory ? (
-        <View style={{ flex: 1, padding: 1 }}>
+return (
+  <View style={styles.container}>
+    {selectedCategory ? (
+      <View style={{ flex: 1, padding: 1 }}>
+        {/* HEADER */}
+        <View style={styles.categoryHeader}>
           <TouchableOpacity onPress={() => setSelectedCategory(null)}>
-            <Text style={{ fontSize: 16, marginBottom: 1 }}>← Back</Text>
+            <Text style={styles.backBtn}>←</Text>
           </TouchableOpacity>
 
-          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>
-            {selectedCategory}
-          </Text>
+          <View style={styles.headerCenter}>
+            <Text numberOfLines={1} style={styles.categoryTitleHeader}>
+              {selectedCategory}
+            </Text>
+            <Text style={styles.deliveryText}>
+              Delivering to: Bajnamath Chowk
+            </Text>
+          </View>
 
-          <FlatList
-            data={deals}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            renderItem={({ item }) => (
-              <View style={styles.productCard}>
-                <Image source={item.image} style={styles.productImg} />
-                <Text>{item.name}</Text>
-                <Text>{item.price}</Text>
+          <Text style={styles.searchIcon}>🔍</Text>
+        </View>
 
-                <TouchableOpacity style={styles.addBtn}>
-                  <Text style={{ color: '#ff7a00' }}>ADD</Text>
+        {/* FILTERS */}
+        <View style={styles.filterRow}>
+          <Text style={styles.filterBtn}>Filters</Text>
+          <Text style={styles.filterBtn}>Sort</Text>
+          <Text style={styles.filterBtn}>Prices</Text>
+          <Text style={styles.filterBtn}>Brand</Text>
+        </View>
+
+        {/* PRODUCTS */}
+        <FlatList
+          data={productsByCategory[selectedCategory] || []}
+
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          contentContainerStyle={{ paddingBottom: 140 }}
+          renderItem={({ item }) => (
+           <TouchableOpacity
+             style={styles.productCardNew}
+             activeOpacity={0.9}
+             onPress={() =>
+               navigation.navigate('ProductDetails', { product: item })
+             }
+           >
+
+              <Image source={item.image} style={styles.productImgNew} />
+
+              <Text style={styles.productName}>{item.name}</Text>
+              <Text style={styles.rating}>⭐⭐⭐⭐⭐ (3,859)</Text>
+              <Text style={styles.deliveryTime}>🟢 11 MINS</Text>
+              <Text style={styles.onlyLeft}>Only 1 left</Text>
+
+              <View style={styles.priceRow}>
+                <Text style={styles.productPrice}>{item.price}</Text>
+
+                <TouchableOpacity
+                  style={styles.addBtnRight}
+                  onPress={() => handleAdd(item)}
+                >
+                  <Text style={styles.addText}>ADD</Text>
                 </TouchableOpacity>
               </View>
-            )}
-
-          />
-
-        </View>
-      ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-
-          <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
-
-          <View style={styles.header}>
-            <View>
-              <Text style={styles.time}>Welcome to FROOKOON !</Text>
-              <Text style={styles.address}>AMIT PATEL</Text>
-            </View>
-
-<TouchableOpacity
-  style={styles.profile}
-  onPress={() => setMenuVisible(!menuVisible)}
->
-  <Text style={{ color: '#ff7a00', fontSize: 22 }}>
-    {menuVisible ? '✕' : '☰'}
-  </Text>
-</TouchableOpacity>
-
-
-          </View>
-
-          <View style={styles.searchBar}>
-            <TextInput placeholder="Search..." style={styles.searchInput} />
-            <Text style={styles.mic}>🎤 </Text>
-          </View>
-
-          <View style={styles.bannerWrapper}>
-            <Image source={require('../assets/banner.png')} style={styles.banner} resizeMode="cover" />
-          </View>
-
-          <Text style={styles.categoryTitle}>Shop & Categories</Text>
-
-          <FlatList
-            data={categories}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
-            scrollEnabled={false}
-            contentContainerStyle={{ paddingHorizontal: 12 }}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.categoryCard}
-                onPress={() => setSelectedCategory(item.title)}
-              >
-                <View>
-                  <Text style={styles.categoryTitleText}>{item.title}</Text>
-                </View>
-
-                <View style={styles.imageBox}>
-                  <Image source={item.image} style={styles.categoryImg} />
-                </View>
-              </TouchableOpacity>
-            )}
-
-
-
-          />
-
-          <Text style={styles.dealsTitle}>Top deals on bestsellers</Text>
-
-          <FlatList
-            data={deals}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
-            scrollEnabled={false}
-            contentContainerStyle={{ paddingHorizontal: 18 }}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            renderItem={({ item }) => (
-              <View style={styles.dealCard}>
-                <Image source={item.image} style={styles.dealImg} />
-                <Text style={styles.dealName} numberOfLines={2}>{item.name}</Text>
-                <Text style={styles.dealPrice}>{item.price}</Text>
-              </View>
-            )}
-          />
-
-        </ScrollView>
-      )}
-
-      {showLocationPopup && (
-        <View style={styles.locationSheet}>
-          <View style={styles.dragHandle} />
-
-          <View style={styles.locationHeader}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.popupTitle}>Device Location Not Enabled</Text>
-              <Text style={styles.popupSub}>
-                Enable your device location for better results
-              </Text>
-            </View>
-
-            <TouchableOpacity
-              style={styles.enableBtnSmall}
-              onPress={() => setShowLocationPopup(false)}
-            >
-              <Text style={{ color: '#fff', fontWeight: '600' }}>Enable</Text>
             </TouchableOpacity>
+          )}
+        />
+
+        {/* CART BAR */}
+       {totalItems > 0 && (
+         <TouchableOpacity
+           style={styles.cartBar}
+           onPress={() => navigation.navigate('Cart')}
+           activeOpacity={0.9}
+         >
+           {/* Product Thumbnail */}
+           <View style={styles.cartThumbWrap}>
+             <Image
+               source={require('../assets/cart.png')}
+               style={styles.cartThumb}
+             />
+           </View>
+
+           <View style={{ flex: 1 }}>
+             <Text style={styles.cartTitle}>View cart</Text>
+             <Text style={styles.cartSub}>
+               {totalItems} item{totalItems !== 1 ? 's' : ''}
+             </Text>
+           </View>
+
+           {/* Arrow */}
+           <View style={styles.cartArrowWrap}>
+             <Text style={styles.cartArrow}>➜</Text>
+           </View>
+         </TouchableOpacity>
+       )}
+
+      </View>
+    ) : (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Image
+          source={require('../assets/logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.time}>Welcome to FROOKOON !</Text>
+            <Text style={styles.address}>AMIT PATEL</Text>
           </View>
 
-          <Text style={styles.savedTitle}>Select a Saved address</Text>
-
-          <TouchableOpacity style={styles.addressCard}>
-            <Text style={styles.homeIcon}>🏠</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.addressTitle}>HOME</Text>
-              <Text style={styles.addressText}>
-                123 MG ROAD, BANGALURU, KA 560001
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.searchLocation}>
-            <Text>🔍 Search Location Manually</Text>
+          <TouchableOpacity
+            style={styles.profile}
+            onPress={() => setMenuVisible(!menuVisible)}
+          >
+            <Text style={{ color: '#ff7a00', fontSize: 22 }}>
+              {menuVisible ? '✕' : '☰'}
+            </Text>
           </TouchableOpacity>
         </View>
-      )}
 
-<Modal
-  transparent
-  animationType="fade"
-  visible={menuVisible}
-  onRequestClose={() => setMenuVisible(false)}
->
-  <View style={styles.menuOverlay}>
+        <View style={styles.searchBar}>
+          <TextInput placeholder="Search..." style={styles.searchInput} />
+          <Text style={styles.mic}>🎤 </Text>
+        </View>
 
-    {/* Tap outside closes menu */}
-    <TouchableOpacity
-      style={{ flex: 1 }}
-      activeOpacity={1}
-      onPress={() => setMenuVisible(false)}
-    />
+        <View style={styles.bannerWrapper}>
+          <Image
+            source={require('../assets/banner.png')}
+            style={styles.banner}
+            resizeMode="cover"
+          />
+        </View>
 
-    {/* Popup Card */}
-    <View style={styles.profileMenuCard}>
+        <Text style={styles.categoryTitle}>Shop & Categories</Text>
 
-    <TouchableOpacity
-      style={styles.closeBtn}
-      onPress={() => setMenuVisible(false)}
-    >
-      <Text style={{ color: '#fff', fontSize: 16 }}>✕</Text>
-    </TouchableOpacity>
+        <FlatList
+          data={categories}
+          keyExtractor={(item, index) => item.id + index}
+          numColumns={3}
+          scrollEnabled={false}
+          contentContainerStyle={{ paddingHorizontal: 14 }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.categoryCard}
+              onPress={() => setSelectedCategory(item.title)}
+            >
+              <View>
+                <Text style={styles.categoryTitleText}>{item.title}</Text>
+              </View>
 
+              <View style={styles.imageBox}>
+                <Image source={item.image} style={styles.categoryImg} />
+              </View>
+            </TouchableOpacity>
+          )}
+        />
 
-
-      <View style={styles.avatarCircle}>
-        <Text style={{ fontSize: 34, color: '#fff' }}>👤</Text>
-      </View>
-
-
-      <Text style={styles.profileName}>AMIT PATEL</Text>
-
-      <View style={styles.divider} />
-
-
-      <TouchableOpacity style={styles.menuButton}>
-        <Text style={styles.menuButtonText}>👤   Profile</Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity style={styles.menuButton}>
-        <Text style={styles.menuButtonText}>📦   My Orders</Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity style={styles.menuButton}>
-        <Text style={[styles.menuButtonText, { color: 'red' }]}>
-          🔐   Log Out
+        <Text style={styles.dealsTitle}>
+          Top deals on bestsellers
         </Text>
-      </TouchableOpacity>
 
-    </View>
+        <FlatList
+         data={deals}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+          scrollEnabled={false}
+          contentContainerStyle={{ paddingHorizontal: 14 }}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          renderItem={({ item }) => (
+            <View style={styles.dealCard}>
+              <Image source={item.image} style={styles.dealImg} />
+              <Text style={styles.dealName} numberOfLines={2}>
+                {item.name}
+              </Text>
+              <Text style={styles.dealPrice}>{item.price}</Text>
+            </View>
+          )}
+        />
+      </ScrollView>
+    )}
+
+    {showLocationPopup && (
+      <View style={styles.locationSheet}>
+        <View style={styles.dragHandle} />
+
+        <View style={styles.locationHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.popupTitle}>
+              Device Location Not Enabled
+            </Text>
+            <Text style={styles.popupSub}>
+              Enable your device location for better results
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.enableBtnSmall}
+            onPress={() => setShowLocationPopup(false)}
+          >
+            <Text style={{ color: '#fff', fontWeight: '600' }}>
+              Enable
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.savedTitle}>
+          Select a Saved address
+        </Text>
+
+        <TouchableOpacity style={styles.addressCard}>
+          <Text style={styles.homeIcon}>🏠</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.addressTitle}>HOME</Text>
+            <Text style={styles.addressText}>
+              123 MG ROAD, BANGALURU, KA 560001
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.searchLocation}>
+          <Text>🔍 Search Location Manually</Text>
+        </TouchableOpacity>
+      </View>
+    )}
+
+    <Modal
+      transparent
+      animationType="fade"
+      visible={menuVisible}
+      onRequestClose={() => setMenuVisible(false)}
+    >
+      <View style={styles.menuOverlay}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          activeOpacity={1}
+          onPress={() => setMenuVisible(false)}
+        />
+
+        <View style={styles.profileMenuCard}>
+          <TouchableOpacity
+            style={styles.closeBtn}
+            onPress={() => setMenuVisible(false)}
+          >
+            <Text style={{ color: '#fff', fontSize: 16 }}>✕</Text>
+          </TouchableOpacity>
+
+          <View style={styles.avatarCircle}>
+            <Text style={{ fontSize: 34, color: '#fff' }}>👤</Text>
+          </View>
+
+          <Text style={styles.profileName}>AMIT PATEL</Text>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity style={styles.menuButton}>
+            <Text style={styles.menuButtonText}>👤 Profile</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuButton}>
+            <Text style={styles.menuButtonText}>📦 My Orders</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuButton}>
+            <Text style={[styles.menuButtonText, { color: 'red' }]}>
+              🔐 Log Out
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
   </View>
-</Modal>
+);
 
-
-
-
-
-    </View>
-  );
 };
 
 export default HomeScreen;
@@ -533,6 +652,204 @@ menuOverlay: {
   backgroundColor: 'rgba(0,0,0,0.25)',
 },
 
+
+
+productCardNew: {
+  width: '48%',
+  backgroundColor: '#fff',
+  borderRadius: 18,
+  padding: 12,
+  marginBottom: 14,
+  elevation: 3,
+},
+
+productImgNew: {
+  width: '100%',
+  height: 120,
+  resizeMode: 'contain',
+},
+
+addBtnNew: {
+  alignSelf: 'center',
+  borderWidth: 1.5,
+  borderColor: '#ff7a00',
+  borderRadius: 10,
+  paddingHorizontal: 16,
+  paddingVertical: 5,
+  marginTop: -12,
+  backgroundColor: '#fff',
+  elevation: 2,
+},
+
+addText: {
+  color: '#ff7a00',
+  fontWeight: 'bold',
+},
+
+productName: {
+  fontWeight: '600',
+  marginTop: 8,
+},
+
+rating: {
+  fontSize: 12,
+  marginTop: 4,
+},
+
+deliveryTime: {
+  color: 'green',
+  fontSize: 12,
+  marginTop: 3,
+},
+
+onlyLeft: {
+  color: 'red',
+  fontSize: 12,
+},
+
+productPrice: {
+  fontWeight: 'bold',
+  marginTop: 6,
+  fontSize: 15,
+},
+priceRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: 8,
+},
+
+addBtnRight: {
+  borderWidth: 1.5,
+  borderColor: '#ff7a00',
+  borderRadius: 10,
+  paddingHorizontal: 14,
+  paddingVertical: 4,
+  backgroundColor: '#fff',
+},
+
+categoryHeader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 12,
+  paddingVertical: 8,
+  backgroundColor: '#fff',
+},
+
+backBtn: {
+  fontSize: 20,
+  marginRight: 8,
+},
+
+headerCenter: {
+  flex: 1,
+},
+
+categoryTitleHeader: {
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+
+deliveryText: {
+  fontSize: 12,
+  color: '#ff7a00',
+},
+
+searchIcon: {
+  fontSize: 20,
+},
+
+filterRow: {
+  flexDirection: 'row',
+  paddingHorizontal: 12,
+  marginBottom: 6,
+},
+
+filterBtn: {
+  backgroundColor: '#eee',
+  paddingHorizontal: 12,
+  paddingVertical: 6,
+  borderRadius: 8,
+  marginRight: 8,
+},
+
+
+addBtnCenter: {
+  alignSelf: 'center',
+  borderWidth: 1.5,
+  borderColor: '#ff7a00',
+  borderRadius: 10,
+  paddingHorizontal: 16,
+  paddingVertical: 5,
+  backgroundColor: '#fff',
+  marginTop: -10,
+},
+
+cartImg: {
+  width: 36,
+  height: 36,
+  resizeMode: 'contain',
+  marginRight: 10,
+  borderRadius: 6,
+},
+cartBar: {
+  position: 'absolute',
+  bottom: 70,
+  left: 85,
+  right: 85,
+  height: 60, // important
+  backgroundColor: '#F7931E',
+  borderRadius: 30,
+  paddingHorizontal: 14,
+  flexDirection: 'row',
+  alignItems: 'center',
+  zIndex: 999,
+  elevation: 10,
+},
+
+
+cartThumbWrap: {
+  width: 46,
+  height: 46,
+  borderRadius: 23,
+  backgroundColor: '#FFE0B2', // light orange circle
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginRight: 12,
+},
+
+cartTitle: {
+  color: '#1A1A1A',
+  fontWeight: '600',
+  fontSize: 14,
+},
+
+cartSub: {
+  color: '#333',
+  fontSize: 12,
+  marginTop: 2,
+},
+
+cartArrowWrap: {
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: '#F57C00', // darker orange for button
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
+cartArrow: {
+  color: '#fff',
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+cartThumb: {
+  width: 32,
+  height: 32,
+  resizeMode: 'contain',
+  borderRadius: 6,
+},
 
 
 
