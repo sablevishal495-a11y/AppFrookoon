@@ -75,16 +75,13 @@ const productsByCategory = {
   const HomeScreen = () => {
   const navigation = useNavigation();
   const { cartItems, addToCart } = useCart();
-
   const [menuVisible, setMenuVisible] = useState(false);
   const [showLocationPopup, setShowLocationPopup] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
   const totalItems = cartItems.reduce(
     (t, i) => t + (i.quantity || 1),
     0
   );
-
   const handleAdd = (item: any) => {
     addToCart({
       id: item.id,
@@ -93,7 +90,7 @@ const productsByCategory = {
       image: item.image,
       quantity: 1,
     });
-  };
+}
 
 return (
   <View style={styles.container}>
