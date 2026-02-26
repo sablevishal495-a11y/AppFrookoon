@@ -23,6 +23,8 @@ const CategoriesStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="CategoriesMain" component={CategoriesScreen} />
     <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+     <Stack.Screen name="StoreDetails" component={StoreDetailsScreen} />
+
   </Stack.Navigator>
 );
 

@@ -24,8 +24,6 @@ const AppNavigator = () => {
       <Stack.Screen name="Location" component={LocationScreen} />
       <Stack.Screen name="Home" component={BottomTabs} />
 
-
-
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
 
 
