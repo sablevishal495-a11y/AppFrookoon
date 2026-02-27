@@ -355,7 +355,7 @@ return (
               navigation.navigate('Settings');
             }}
           >
-            <Text style={styles.menuButtonText}>⚙️   Settings</Text>
+            <Text style={styles.menuButtonText}>⚙️ Settings</Text>
           </TouchableOpacity>
 
           <TouchableOpacity

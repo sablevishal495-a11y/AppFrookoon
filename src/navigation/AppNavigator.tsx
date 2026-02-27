@@ -8,9 +8,10 @@ import CreateAccountScreen from "../screens/CreateAccountScreen";
 import LocationScreen from '../screens/LocationScreen';
 import BottomTabs from './BottomTabs';
 import CheckoutScreen from '../screens/CheckoutScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+
 
 
 const Stack = createNativeStackNavigator();
