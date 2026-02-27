@@ -348,15 +348,33 @@ return (
 
           <View style={styles.divider} />
 
-          <TouchableOpacity style={styles.menuButton}>
-            <Text style={styles.menuButtonText}>👤 Profile</Text>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={() => {
+              setMenuVisible(false);
+              navigation.navigate('Settings');
+            }}
+          >
+            <Text style={styles.menuButtonText}>⚙️   Settings</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuButton}>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={() => {
+              setMenuVisible(false);
+              navigation.navigate('MyOrders');
+            }}
+          >
             <Text style={styles.menuButtonText}>📦 My Orders</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuButton}>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={() => {
+              setMenuVisible(false);
+              navigation.replace('Login');
+            }}
+          >
             <Text style={[styles.menuButtonText, { color: 'red' }]}>
               🔐 Log Out
             </Text>

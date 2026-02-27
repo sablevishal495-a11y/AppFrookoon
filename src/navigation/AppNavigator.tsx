@@ -10,6 +10,7 @@ import BottomTabs from './BottomTabs';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ const AppNavigator = () => {
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Location" component={LocationScreen} />
       <Stack.Screen name="Home" component={BottomTabs} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
 
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
 
