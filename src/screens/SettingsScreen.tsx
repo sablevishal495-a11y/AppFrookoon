@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useUser } from '../context/UserContext';
 import { useNavigation } from '@react-navigation/native';
 
 // ─── Reusable Section Title ───────────────────────────────────────────────────
@@ -54,6 +55,10 @@ const MenuItem = ({
 const SettingsScreen = () => {
   const navigation = useNavigation<any>();
   const [lightMode, setLightMode] = useState(true);
+  const { userName, userEmail } = useUser();
+  const displayName = userName                               // added helper
+    ? userName.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
+    : 'Guest';
 
   return (
     <View style={styles.container}>
@@ -85,8 +90,8 @@ const SettingsScreen = () => {
           </View>
 
           <View>
-            <Text style={styles.userName}>Amit Patel</Text>
-            <Text style={styles.userEmail}>amitpatel@gmail.com</Text>
+            <Text style={styles.userName}>{displayName}</Text>
+            <Text style={styles.userEmail}>{userEmail || 'No email set'}</Text>
           </View>
         </View>
 
