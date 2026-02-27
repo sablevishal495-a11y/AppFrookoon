@@ -11,6 +11,7 @@ import CheckoutScreen from '../screens/CheckoutScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
+import MyOrdersScreen from '../screens/MyOrdersScreen';
 
 
 
@@ -26,6 +27,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Location" component={LocationScreen} />
       <Stack.Screen name="Home" component={BottomTabs} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+<Stack.Screen name="MyOrders" component={MyOrdersScreen} />
 
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
 
