@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 import {
   View,
   Text,
@@ -19,7 +20,7 @@ const categories = [
   { id: 'a3', title: 'Munchies & Snacks', image: require('../assets/cat3.png') },
   { id: 'a4', title: 'Oils, Spices & Dryfruits', image: require('../assets/cat4.png') },
   { id: 'a5', title: 'Cold drinks & juices', image: require('../assets/cat5.png') },
-  { id: 'a6', title: 'Beauty & Cosmatics', image: require('../assets/cat99.png') },
+  { id: 'a6', title: 'Beauty & Cosmetics', image: require('../assets/cat99.png') },
 ];
 
 const deals = [
@@ -50,7 +51,7 @@ const productsByCategory = {
     { id: 'f9', name: 'Real Juice', price: '₹99', image: require('../assets/juice.png') },
   ],
 
-  "Beauty & Cosmatics": [
+  "Beauty & Cosmetics": [
     { id: 'j10', name: 'Face Wash', price: '₹120', image: require('../assets/facewash.png') },
     { id: 'j11', name: 'Shampoo', price: '₹180', image: require('../assets/shampoo.png') },
   ],
@@ -73,11 +74,14 @@ const productsByCategory = {
 
 
   const HomeScreen = () => {
+
+        const { userName} = useUser();
   const navigation = useNavigation();
   const { cartItems, addToCart } = useCart();
   const [menuVisible, setMenuVisible] = useState(false);
   const [showLocationPopup, setShowLocationPopup] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   const totalItems = cartItems.reduce(
     (t, i) => t + (i.quantity || 1),
     0
@@ -91,7 +95,9 @@ const productsByCategory = {
       quantity: 1,
     });
 }
-
+const displayName = userName
+  ? userName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+  : 'Guest';
 return (
   <View style={styles.container}>
     {selectedCategory ? (
@@ -201,7 +207,7 @@ return (
         <View style={styles.header}>
           <View>
             <Text style={styles.time}>Welcome to FROOKOON !</Text>
-            <Text style={styles.address}>AMIT PATEL</Text>
+            <Text style={styles.address}>{displayName}</Text>
           </View>
 
           <TouchableOpacity
@@ -406,7 +412,7 @@ const styles = StyleSheet.create({
   },
 
   time: { fontWeight: 'bold', fontSize: 14 },
-  address: { fontSize: 13, marginTop: 2 },
+  address: { fontSize: 18, fontWeight: '700', marginTop: 2, color: '#ff7a00' },
 
   profile: {
     width: 36,

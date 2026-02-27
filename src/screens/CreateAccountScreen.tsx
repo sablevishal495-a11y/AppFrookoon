@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     ScrollView,
     SafeAreaView,
-    Dimensions,
     KeyboardAvoidingView,
     Platform,
     BackHandler,
@@ -16,8 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
-const { width } = Dimensions.get("window");
+import { useUser } from "../context/UserContext";
 
 const CustomInput = ({
     label,
@@ -54,13 +52,19 @@ const CustomInput = ({
 
 const CreateAccountScreen = () => {
     const navigation = useNavigation<any>();
+    const { saveUser } = useUser(); // ✅ pull saveUser from context
+
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleCreateAccount = () => {
-        // Logic for account creation
-        console.log("Creating account for:", fullName, email);
+        if (!fullName.trim() || !email.trim() || !password.trim()) return;
+
+        // ✅ This one line saves name + email globally
+        // HomeScreen, SettingsScreen, everywhere will update automatically
+        saveUser(fullName.trim(), email.trim());
+
         navigation.replace('Home');
     };
 
@@ -90,7 +94,7 @@ const CreateAccountScreen = () => {
                     {/* Title Section */}
                     <View style={styles.titleSection}>
                         <Text style={styles.titleText}>Create an Account</Text>
-                        <Text style={styles.subtitleText}>Let’s Create Your Account</Text>
+                        <Text style={styles.subtitleText}>Let's Create Your Account</Text>
                     </View>
 
                     {/* Input Fields */}
@@ -180,12 +184,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginBottom: 30,
-        // Shadow for iOS
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        // Shadow for Android
         elevation: 3,
     },
     titleSection: {
@@ -219,12 +221,10 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         paddingHorizontal: 16,
         justifyContent: "center",
-        // Shadow for iOS
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.05,
         shadowRadius: 4,
-        // Shadow for Android
         elevation: 2,
     },
     textInput: {
