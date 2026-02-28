@@ -12,7 +12,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import MyOrdersScreen from '../screens/MyOrdersScreen';
-
+import StoreDetailsScreen from '../screens/StoreDetailsScreen';
 
 
 const Stack = createNativeStackNavigator();

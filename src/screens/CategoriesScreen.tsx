@@ -28,7 +28,7 @@ const catalog = {
   Atta: [
     { id: '1', name: 'Ashirvad Atta', price: 350, image: require('../assets/atta.png') },
     { id: '2', name: 'Ashirvad Atta', price: 450, image: require('../assets/atta2.png') },
-    { id: '3', name: 'Ashirvad Atta', price: 550, image: require('../assets/atta.png') },
+    { id: '3', name: 'Chakki Fresh Atta', price: 550, image: require('../assets/attaa.png.jpg') },
     { id: '4', name: 'Ashirvad Atta', price: 650, image: require('../assets/atta2.png') },
     { id: '5', name: 'Ashirvad Atta', price: 750, image: require('../assets/atta.png') },
     { id: '6', name: 'Ashirvad Atta', price: 850, image: require('../assets/atta2.png') },

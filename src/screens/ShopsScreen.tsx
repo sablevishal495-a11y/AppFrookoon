@@ -16,7 +16,7 @@ const ShopsScreen = ({ navigation }: any) => {
     {
       id: 's1',
       name: 'Shyam Grocery',
-      image: require('../assets/shop.png.png'),
+      image: require('../assets/shyam.png'),
     },
     {
       id: 's2',
@@ -111,20 +111,23 @@ const ShopsScreen = ({ navigation }: any) => {
           Shop From The Local Stores You Trust.
         </Text>
 
-        {stores.map((store) => (
-          <TouchableOpacity
-            key={store.id}
-            style={styles.storeCard}
-            activeOpacity={0.8}
-          >
-            <Image source={store.image} style={styles.storeImage} />
-            <Text style={styles.storeName}>{store.name}</Text>
+ {stores.map((store) => (
+   <TouchableOpacity
+     key={store.id}
+     style={styles.storeCard}
+     activeOpacity={0.8}
+     onPress={() =>
+       navigation.navigate('StoreDetails', { store })
+     }
+   >
+     <Image source={store.image} style={styles.storeImage} />
+     <Text style={styles.storeName}>{store.name}</Text>
 
-            <View style={styles.arrowBtn}>
-              <Icon name="chevron-forward" size={18} color="#ff7a00" />
-            </View>
-          </TouchableOpacity>
-        ))}
+     <View style={styles.arrowBtn}>
+       <Icon name="chevron-forward" size={18} color="#ff7a00" />
+     </View>
+   </TouchableOpacity>
+ ))}
 
       </ScrollView>
     </View>
