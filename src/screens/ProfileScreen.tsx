@@ -94,8 +94,16 @@ const ProfileScreen = () => {
         </View>
 
         {/* MENU ITEMS */}
-        <MenuItem icon="create-outline"      title="Edit Profile" />
-        <MenuItem icon="location-outline"    title="Address Management" />
+        <MenuItem
+          icon="create-outline"
+          title="Edit Profile"
+          onPress={() => navigation.navigate('EditProfile')}  // ← add this
+        />
+        <MenuItem
+          icon="location-outline"
+          title="Address Management"
+          onPress={() => navigation.navigate('AddressManagement')}
+        />
         <MenuItem icon="help-circle-outline" title="Help & Support" />
 
         {/* ✅ Logout — redirects to Login */}

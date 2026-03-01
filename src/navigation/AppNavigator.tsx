@@ -12,7 +12,9 @@ import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import MyOrdersScreen from '../screens/MyOrdersScreen';
-
+import EditProfileScreen from '../screens/EditProfileScreen';
+import AddressManagementScreen from '../screens/AddressManagementScreen';
+import NewAddressScreen from '../screens/NewAddressScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,8 +30,10 @@ const AppNavigator = () => {
       <Stack.Screen name="Home" component={BottomTabs} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
 <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
-
+<Stack.Screen name="EditProfile" component={EditProfileScreen} />
+<Stack.Screen name="AddressManagement" component={AddressManagementScreen} />
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
+       <Stack.Screen name="NewAddress" component={NewAddressScreen} />
 
 
 <Stack.Screen
