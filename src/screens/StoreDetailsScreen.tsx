@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCart } from '../context/CartContext';
 import {
   View,
   Text,
@@ -12,20 +13,43 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const storeProducts: any = {
   'Shyam Grocery': [
-    { id: 'p1', name: 'Aashirvaad Atta', price: '₹350', image: require('../assets/atta.png') },
-    { id: 'p2', name: 'Basmati Rice', price: '₹400', image: require('../assets/rice.png') },
+    { id: 'p1', name: 'Aashirvaad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p2', name: 'Basmati Rice', price: '₹400', category: 'Rice', image: require('../assets/rice.png') },
+    { id: 'p7', name: 'Toor Dal', price: '₹199', category: 'Dal', image: require('../assets/dal.png') },
+    { id: 'p8', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p9', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p11', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+
+
   ],
-  'Pawar’s Grocery': [
-    { id: 'p3', name: 'Oil', price: '₹120', image: require('../assets/oil.png') },
-    { id: 'p4', name: 'Dal', price: '₹199', image: require('../assets/dal.png') },
+  'Kamal Grocery': [
+    { id: 'p3', name: 'Ashirwad Atta', price: '₹320', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p4', name: 'Toor Dal', price: '₹199', category: 'Dal', image: require('../assets/dal.png') },
+    { id: 'p5', name: 'India Gate Rice', price: '₹280', category: 'Rice', image: require('../assets/rice.png') },
+  ],
+
+   "Pawar's Grocery": [
+    { id: 'p1', name: 'Aashirvaad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p2', name: 'Basmati Rice', price: '₹400', category: 'Rice', image: require('../assets/rice.png') },
+    { id: 'p7', name: 'Toor Dal', price: '₹199', category: 'Dal', image: require('../assets/dal.png') },
+    { id: 'p8', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p9', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+    { id: 'p11', name: 'Ashirwad Atta', price: '₹350', category: 'Atta', image: require('../assets/atta.png') },
+
+
   ],
 };
 
 const StoreDetailsScreen = ({ route, navigation }: any) => {
   const { store } = route.params;
-  const [selectedCategory, setSelectedCategory] = useState('Atta');
+const categories = ['Atta', 'Rice', 'Dal'];
+const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+const { cartItems, addToCart } = useCart();
+  const allProducts = storeProducts[store.name] || [];
 
-  const products = storeProducts[store.name] || [];
+  const filteredProducts = allProducts.filter(
+    (item: any) => item.category === selectedCategory
+  );
 
   return (
     <View style={styles.container}>
@@ -89,30 +113,74 @@ const StoreDetailsScreen = ({ route, navigation }: any) => {
           100+ Products
         </Text>
 
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          scrollEnabled={false}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          renderItem={({ item }) => (
-            <View style={styles.productCard}>
-              <Image source={item.image} style={styles.productImg} />
-              <Text style={{ fontWeight: '600' }}>{item.name}</Text>
-              <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
-                {item.price}
-              </Text>
+       <FlatList
+         data={filteredProducts}
+         keyExtractor={(item) => item.id}
+         numColumns={2}
+         scrollEnabled={false}
+         columnWrapperStyle={{ justifyContent: 'space-between' }}
+         renderItem={({ item }) => (
+           <TouchableOpacity
+             style={styles.productCard}
+             onPress={() =>
+               navigation.navigate('ProductDetails', { product: item })
+             }
+             activeOpacity={0.8}
+           >
+             <Image source={item.image} style={styles.productImg} />
 
-              <TouchableOpacity style={styles.addBtn}>
-                <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
-                  ADD
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
+             <Text style={{ fontWeight: '600' }}>{item.name}</Text>
+
+             <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
+               {item.price}
+             </Text>
+
+             <TouchableOpacity
+               style={styles.addBtn}
+               onPress={(e) => {
+                 e.stopPropagation(); // 🔥 VERY IMPORTANT
+                 addToCart({
+                   ...item,
+                   quantity: 1,
+                 });
+               }}
+             >
+               <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
+                 ADD
+               </Text>
+             </TouchableOpacity>
+           </TouchableOpacity>
+         )}
+       />
 
       </ScrollView>
+
+      {/* FLOATING CART */}
+      {cartItems.length > 0 && (
+        <TouchableOpacity
+          style={styles.cartBar}
+          onPress={() => navigation.navigate('Cart')}
+          activeOpacity={0.9}
+        >
+          <Image
+            source={require('../assets/cart.png')}
+            style={styles.cartImg}
+          />
+
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cartTitle}>View cart</Text>
+            <Text style={styles.cartSub}>
+              {cartItems.length} item
+              {cartItems.length !== 1 ? 's' : ''}
+            </Text>
+          </View>
+
+          <View style={styles.cartBtn}>
+            <Text style={{ color: '#fff', fontSize: 18 }}>➜</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+
     </View>
   );
 };
@@ -190,6 +258,7 @@ const styles = StyleSheet.create({
 
   productCard: {
     width: '48%',
+    height: 250,
     backgroundColor: '#fff',
     borderRadius: 18,
     padding: 12,
@@ -199,7 +268,7 @@ const styles = StyleSheet.create({
 
   productImg: {
     width: '100%',
-    height: 100,
+    height: 150,
     resizeMode: 'contain',
   },
 
@@ -209,7 +278,44 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 4,
     alignItems: 'center',
-    marginTop: 6,
+    marginTop: 10,
+  },
+
+  cartBar: {
+    position: 'absolute',
+    bottom: 60,
+    alignSelf: 'center',
+    width: '50%',
+    backgroundColor: '#f4c27a',
+    borderRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    elevation: 10,
+  },
+
+  cartImg: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    marginRight: 10,
+  },
+
+  cartTitle: {
+    fontWeight: 'bold',
+  },
+
+  cartSub: {
+    fontSize: 12,
+  },
+
+  cartBtn: {
+    backgroundColor: '#ff7a00',
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -15,6 +15,9 @@ import MyOrdersScreen from '../screens/MyOrdersScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import AddressManagementScreen from '../screens/AddressManagementScreen';
 import NewAddressScreen from '../screens/NewAddressScreen';
+import StoreDetailsScreen from '../screens/StoreDetailsScreen';
+
+
 
 
 const Stack = createNativeStackNavigator();

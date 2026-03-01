@@ -350,7 +350,7 @@ return (
             <Text style={{ fontSize: 34, color: '#fff' }}>👤</Text>
           </View>
 
-          <Text style={styles.profileName}>AMIT PATEL</Text>
+          <Text style={styles.address}>{displayName}</Text>
 
           <View style={styles.divider} />
 

@@ -12,114 +12,160 @@ import {
 
 const ProductDetailsScreen = ({ route, navigation }) => {
   const { product } = route.params;
-//   const { cartItems, addToCart } = useCart();
+
   const { cartItems, addToCart, increaseQty } = useCart();
-
   const cartItem = cartItems.find(i => i.id === product.id);
-
-
   const [qty, setQty] = useState(1);
 
   const similarProducts = [
-    { id: 's1', name: 'Tomato', image: require('../assets/tomato.png') },
-    { id: 's2', name: 'Onion', image: require('../assets/onion.png') },
-    { id: 's3', name: 'Cauliflower', image: require('../assets/cauliflower.png') },
+    { id: 's1', name: 'Tomato', price: '35' , image: require('../assets/tomato.png') },
+    { id: 's2', name: 'Onion', price: '35' ,image: require('../assets/onion.png') },
+    { id: 's3', name: 'Cauliflower',price: '35' , image: require('../assets/cauliflower.png') },
+    { id: 's4', name: 'Atta',price: '35' , image: require('../assets/atta.png') },
+
   ];
 
+const moreProducts = [
+  { id: 'm1', name: 'Rice', price: '₹950', image: require('../assets/rice.png') },
+  { id: 'm2', name: 'Dal', price: '₹130', image: require('../assets/dal.png') },
+  { id: 'm3', name: 'Atta', price: '₹380', image: require('../assets/atta.png') },
+  { id: 'm4', name: 'Atta', price: '₹350', image: require('../assets/atta2.png') },
+];
+
   return (
-    <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
+    <View style={{ flex: 1, backgroundColor: '#EFEFEF' }}>
+      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 260 }}>
 
-      {/* MAIN CONTENT */}
-      <ScrollView
-        contentContainerStyle={{
-          padding: 16,
-          paddingBottom: 220, // space for floating bars
-        }}
-      >
-        {/* BACK */}
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.back}>← Back</Text>
-        </TouchableOpacity>
-
-        {/* PRODUCT IMAGE */}
-        <View style={styles.heroCard}>
-          <Image source={product.image} style={styles.image} />
+        {/* HEADER */}
+        <View style={styles.headerRow}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <Text style={styles.menuDots}>≡</Text>
         </View>
 
-        {/* PRODUCT INFO */}
-        <Text style={styles.title}>{product.name}</Text>
-        <Text style={styles.weight}>500 g</Text>
+        {/* HERO IMAGE */}
+        <View style={styles.heroWrapper}>
+          <Image source={product.image} style={styles.heroImage} />
+        </View>
 
-        <Text style={styles.price}>{product.price} MRP</Text>
+        {/* PRODUCT INFO ROW */}
+        <View style={styles.productRow}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.title}>
+              {product.name.toUpperCase()}
+            </Text>
 
-        <Text style={styles.detailsLink}>View product details ▾</Text>
+            <Text style={styles.weight}>500g</Text>
 
-        {/* ADD TO CART BUTTON */}
-        <TouchableOpacity
-          style={styles.cartBtn}
-          onPress={() =>
-            addToCart({
-              ...product,
-              quantity: qty,
-            })
-          }
-        >
-          <Text style={styles.cartBtnText}>Add to Cart</Text>
-        </TouchableOpacity>
+            <Text style={styles.price}>
+              {product.price} <Text style={styles.mrp}>MRP</Text>
+            </Text>
 
-        {/* SIMILAR PRODUCTS */}
-        <Text style={styles.similarTitle}>
-          Similar products in this category
-        </Text>
+            <Text style={styles.detailsLink}>
+              View product details ▾
+            </Text>
+          </View>
 
-        <Text style={styles.similarSubTitle}>
-          Frequently bought together
-        </Text>
+          <TouchableOpacity
+            style={styles.smallAddBtn}
+            onPress={() =>
+              addToCart({
+                ...product,
+                quantity: 1,
+              })
+            }
+          >
+            <Text style={styles.smallAddText}>Add to Cart</Text>
+          </TouchableOpacity>
+        </View>
 
-        <FlatList
-          data={similarProducts}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingTop: 12 }}
-          renderItem={({ item }) => (
-            <View style={styles.similarItem}>
-              <View style={styles.similarCard}>
-                <Image source={item.image} style={styles.similarImg} />
-              </View>
-              <Text style={styles.similarName}>{item.name}</Text>
-            </View>
-          )}
-        />
+     {/* SIMILAR PRODUCTS */}
+     <Text style={styles.similarTitle}>
+       Top products in this category
+     </Text>
+
+     <Text style={styles.similarSubTitle}>
+       Frequently bought together
+     </Text>
+
+     <FlatList
+       data={similarProducts}
+       keyExtractor={(item) => item.id}
+       horizontal
+       showsHorizontalScrollIndicator={false}
+       contentContainerStyle={{ paddingTop: 12 }}
+       renderItem={({ item }) => (
+         <TouchableOpacity
+           style={styles.similarItem}
+           activeOpacity={0.8}
+           onPress={() =>
+             navigation.push('ProductDetails', { product: item })
+           }
+         >
+           <View style={styles.similarCard}>
+             <Image source={item.image} style={styles.similarImg} />
+           </View>
+           <Text style={styles.similarName}>{item.name}</Text>
+         </TouchableOpacity>
+       )}
+     />
+
+     {/* MORE PRODUCTS SECTION */}
+     <Text style={styles.moreTitle}>
+       More products you may like
+     </Text>
+
+     <FlatList
+       data={moreProducts}
+       keyExtractor={(item) => item.id}
+       numColumns={2}
+       scrollEnabled={false}
+       columnWrapperStyle={{ justifyContent: 'space-between' }}
+       renderItem={({ item }) => (
+         <TouchableOpacity
+           style={styles.moreCard}
+           onPress={() =>
+             navigation.push('ProductDetails', { product: item })
+           }
+         >
+           <Image source={item.image} style={styles.moreImg} />
+           <Text style={styles.moreName}>{item.name}</Text>
+           <Text style={styles.morePrice}>{item.price}</Text>
+         </TouchableOpacity>
+       )}
+     />
+
       </ScrollView>
 
       {/* FLOATING CART */}
-      <TouchableOpacity
-        style={styles.cartBar}
-        onPress={() => navigation.navigate('Cart')}
-        activeOpacity={0.9}
-      >
-        <Image
-          source={require('../assets/cart.png')}
-          style={styles.cartImg}
-        />
 
-        <View style={{ flex: 1 }}>
-          <Text style={styles.cartTitle}>View cart</Text>
-          <Text style={styles.cartSub}>
-            {cartItems.length} item{cartItems.length !== 1 ? 's' : ''}
-          </Text>
-        </View>
+     {cartItems.length > 0 && (
+       <TouchableOpacity
+         style={styles.cartBar}
+         onPress={() => navigation.navigate('Cart')}
+         activeOpacity={0.9}
+       >
+         <Image
+           source={require('../assets/cart.png')}
+           style={styles.cartImg}
+         />
 
-        <View style={styles.cartArrow}>
-          <Text style={{ color: '#fff', fontSize: 18 }}>➜</Text>
-        </View>
-      </TouchableOpacity>
+         <View style={{ flex: 1 }}>
+           <Text style={styles.cartTitle}>View cart</Text>
+           <Text style={styles.cartSub}>
+             {cartItems.length} item{cartItems.length !== 1 ? 's' : ''}
+           </Text>
+         </View>
+
+         <View style={styles.cartArrow}>
+           <Text style={{ color: '#fff', fontSize: 18 }}>➜</Text>
+         </View>
+       </TouchableOpacity>
+     )}
 
       {/* BOTTOM QTY BAR */}
       <View style={styles.bottomProductBar}>
         <View>
-          <Text style={styles.bottomWeight}>500 g</Text>
+          <Text style={styles.bottomWeight}>500g</Text>
 
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={styles.bottomPrice}>{product.price} MRP</Text>
@@ -139,18 +185,17 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 
           <Text style={styles.qtyText}>{qty}</Text>
 
-         <TouchableOpacity
-           onPress={() => {
-             if (cartItem) {
-               increaseQty(product.id);
-             } else {
-               addToCart({ ...product, quantity: 1 });
-             }
-           }}
-         >
-           <Text style={styles.qtyBtn}>+</Text>
-         </TouchableOpacity>
-
+          <TouchableOpacity
+            onPress={() => {
+              if (cartItem) {
+                increaseQty(product.id);
+              } else {
+                addToCart({ ...product, quantity: 1 });
+              }
+            }}
+          >
+            <Text style={styles.qtyBtn}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -159,74 +204,76 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 
 export default ProductDetailsScreen;
 
-/* ---------------- STYLES ---------------- */
+
+
+
 
 const styles = StyleSheet.create({
-  back: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
 
-  heroCard: {
-    backgroundColor: '#fff',
-    borderRadius: 18,
-    padding: 20,
-    elevation: 4,
-    marginBottom: 16,
-  },
 
-  image: {
-    width: '100%',
-    height: 260,
-    resizeMode: 'contain',
-  },
+heroWrapper: {
+  borderRadius: 22,
+  overflow: 'hidden',
+  elevation: 5,
+  marginBottom: 16,
+},
+heroImage: {
+  width: '100%',
+  height: 260,
+  resizeMode: 'cover',
+},
+productRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: 20,
+  marginBottom: 25,
+},
 
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+title: {
+  fontSize: 18,
+  fontWeight: '700',
+  color: '#444',
+},
 
-  weight: {
-    color: '#777',
-    marginTop: 4,
-  },
+smallAddText: {
+  color: '#fff',
+  fontWeight: '600',
+},
 
-  price: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
+smallAddBtn: {
+  backgroundColor: '#ff7a00',
+  paddingVertical: 12,
+  paddingHorizontal: 18,
+  borderRadius: 12,
+  marginTop: 50,
+},
 
-  detailsLink: {
-    color: '#ff7a00',
-    marginTop: 6,
-  },
+ cartBtn: {
+   backgroundColor: '#ff7a00',
+   paddingVertical: 18,
+   borderRadius: 16,
+   alignItems: 'center',
+   marginTop: 25,
+ },
 
-  cartBtn: {
-    backgroundColor: '#ff7a00',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-
-  cartBtnText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+ cartBtnText: {
+   color: '#fff',
+   fontWeight: '600',
+   fontSize: 16,
+ },
 
   similarTitle: {
-    marginTop: 35,
-    fontSize: 18,
+    marginTop: 15,
+    fontSize: 19,
     fontWeight: '700',
-    marginBottom: 8,
   },
 
-  similarSubTitle: {
-    fontSize: 13,
-    color: '#777',
-    marginBottom: 6,
-  },
+similarSubTitle: {
+  fontSize: 16,
+  color: '#888',
+  marginTop: 4,
+},
 
   similarItem: {
     alignItems: 'center',
@@ -245,8 +292,8 @@ const styles = StyleSheet.create({
   },
 
   similarImg: {
-    width: 95,
-    height: 95,
+    width: 100,
+    height: 110,
     resizeMode: 'contain',
   },
 
@@ -257,17 +304,17 @@ const styles = StyleSheet.create({
   },
 
   cartBar: {
-    position: 'absolute',
-    bottom: 80,
-    alignSelf: 'center',
-    width: '50%',
-    backgroundColor: '#f4c27a',
-    borderRadius: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    elevation: 12,
-  },
+     position: 'absolute',
+     bottom: 90,
+     alignSelf: 'center',
+     width: '50%',
+     backgroundColor: '#f4c27a',
+     borderRadius: 30,
+     flexDirection: 'row',
+     alignItems: 'center',
+     padding: 12,
+     elevation: 12,
+   },
 
   cartImg: {
     width: 36,
@@ -293,19 +340,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  bottomProductBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#fff',
-    padding: 14,
-    borderTopWidth: 1,
-    borderColor: '#eee',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+bottomProductBar: {
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: '#fff',
+  paddingVertical: 16,
+  paddingHorizontal: 18,
+  borderTopWidth: 1,
+  borderColor: '#eee',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
 
   bottomWeight: {
     fontWeight: 'bold',
@@ -352,4 +400,85 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
+
+infoSection: {
+  marginTop: 6,
+},
+
+title: {
+  fontSize: 20,
+  fontWeight: '700',
+},
+
+weight: {
+  color: '#888',
+  marginTop: 6,
+  fontSize: 14,
+},
+
+price: {
+  fontSize: 18,
+  fontWeight: '700',
+  marginTop: 12,
+},
+
+mrp: {
+  fontSize: 14,
+  fontWeight: '400',
+},
+
+detailsLink: {
+  color: '#ff7a00',
+  marginTop: 8,
+  fontWeight: '500',
+},
+headerRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 10,
+},
+
+logo: {
+  width: 65,
+  height: 65,
+  resizeMode: 'contain',
+},
+
+menuDots: {
+  fontSize: 35,
+  fontWeight: 'bold',
+},
+
+moreTitle: {
+  marginTop: 30,
+  fontSize: 16,
+  fontWeight: '700',
+},
+
+moreCard: {
+  width: '48%',
+  backgroundColor: '#fff',
+  borderRadius: 14,
+  padding: 10,
+  marginTop: 13,
+  elevation: 3,
+},
+
+moreImg: {
+  width: '100%',
+  height: 100,
+  resizeMode: 'contain',
+},
+
+moreName: {
+  fontWeight: '600',
+  marginTop: 6,
+},
+
+morePrice: {
+  fontWeight: 'bold',
+  marginTop: 4,
+},
+
 });
