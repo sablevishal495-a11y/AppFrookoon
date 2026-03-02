@@ -227,8 +227,8 @@ const AddressManagementScreen = () => {
   const navigation = useNavigation<any>();
 
   const [addresses, setAddresses] = useState<Address[]>([
-    { id: '1', type: 'Office', title: 'Office',  full: 'IT Park / Technopark, Bargi Hills, Jabalpur, Madhya Pradesh', selected: false },
-    { id: '2', type: 'Home',   title: 'Home',    full: '123 MG ROAD, BANGALURU, KA 560001',                           selected: true  },
+    { id: '1', type: 'Office', title: 'Office',  full: 'IT Park, Bargi Hills, Jabalpur, Madhya Pradesh', selected: false },
+    { id: '2', type: 'Home',   title: 'Home',    full: 'Medical,Jabalpur',                           selected: true  },
     { id: '3', type: 'Other',  title: 'Home2',   full: 'Kausalya My Home Block F, Sagar Ratna',                       selected: false },
   ]);
 
@@ -246,7 +246,7 @@ const AddressManagementScreen = () => {
   };
 
   const handleDelete = (id: string) => {
-    Alert.alert('Delete Address', 'Are you sure you want to remove this address?', [
+    Alert.alert('Delete Address', 'Are you sure you want to remove this Address?', [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Delete', style: 'destructive', onPress: () =>
           setAddresses(prev => prev.filter(a => a.id !== id))
