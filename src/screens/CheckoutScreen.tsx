@@ -201,7 +201,7 @@ const extraMethods = [
         style={styles.payButton}
         onPress={() => {
           // simulate successful payment
-          navigation.navigate('PaymentSuccess');
+          navigation.navigate('PaymentSuccess', { cartItems: cartItems })
         }}
       >
         <Text style={styles.payText}>PAYMENT</Text>

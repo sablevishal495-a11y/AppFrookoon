@@ -26,9 +26,12 @@ const PaymentSuccessScreen = () => {
           <Text style={styles.outlineText}>Continue Shopping</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.filledBtn}>
-          <Text style={styles.filledText}>Track Order</Text>
-        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.filledBtn}
+          onPress={() => navigation.navigate('TrackOrder')}
+        >
+                  <Text style={styles.filledText}>Track Order</Text>
+                </TouchableOpacity>
       </View>
     </View>
   );

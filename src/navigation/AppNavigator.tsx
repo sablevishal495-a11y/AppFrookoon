@@ -16,7 +16,8 @@ import EditProfileScreen from '../screens/EditProfileScreen';
 import AddressManagementScreen from '../screens/AddressManagementScreen';
 import NewAddressScreen from '../screens/NewAddressScreen';
 import StoreDetailsScreen from '../screens/StoreDetailsScreen';
-
+import HelpSupportScreen from '../screens/HelpSupportScreen';
+import TrackOrderScreen from '../screens/TrackOrderScreen';
 
 
 
@@ -37,7 +38,8 @@ const AppNavigator = () => {
 <Stack.Screen name="AddressManagement" component={AddressManagementScreen} />
        <Stack.Screen name="Checkout" component={CheckoutScreen} />
        <Stack.Screen name="NewAddress" component={NewAddressScreen} />
-
+       <Stack.Screen name="HelpSupport" component={HelpSupportScreen} />
+<Stack.Screen name="TrackOrder" component={TrackOrderScreen} />
 
 <Stack.Screen
   name="PaymentSuccess"

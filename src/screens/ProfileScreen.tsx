@@ -104,7 +104,11 @@ const ProfileScreen = () => {
           title="Address Management"
           onPress={() => navigation.navigate('AddressManagement')}
         />
-        <MenuItem icon="help-circle-outline" title="Help & Support" />
+        <MenuItem
+          icon="help-circle-outline"
+          title="Help & Support"
+          onPress={() => navigation.navigate('HelpSupport')}
+        />
 
         {/* ✅ Logout — redirects to Login */}
         <MenuItem
