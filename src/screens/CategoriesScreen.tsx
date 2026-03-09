@@ -123,8 +123,6 @@ const { cartItems, addToCart } = useCart();
                 onPress={() =>
                   navigation.navigate('ProductDetails', { product: item })
                 }
-
-
               >
                 <View style={styles.imageWrap}>
                   <Image source={item.image} style={styles.productImg} />

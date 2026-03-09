@@ -1,6 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import OTPScreen from '../screens/OTPScreen';
@@ -18,8 +17,7 @@ import NewAddressScreen from '../screens/NewAddressScreen';
 import StoreDetailsScreen from '../screens/StoreDetailsScreen';
 import HelpSupportScreen from '../screens/HelpSupportScreen';
 import TrackOrderScreen from '../screens/TrackOrderScreen';
-
-
+import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +30,6 @@ const AppNavigator = () => {
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Location" component={LocationScreen} />
       <Stack.Screen name="Home" component={BottomTabs} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
 <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
 <Stack.Screen name="EditProfile" component={EditProfileScreen} />
 <Stack.Screen name="AddressManagement" component={AddressManagementScreen} />

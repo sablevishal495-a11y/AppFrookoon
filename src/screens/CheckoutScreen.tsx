@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
-
 import { useRoute } from '@react-navigation/native';
+import { useCart } from '../context/CartContext';
 
 import {
   View,
@@ -19,7 +18,7 @@ const CheckoutScreen = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 const { totalAmount } = route.params as { totalAmount: number };
-
+const { cartItems }= useCart() ;
   const deliveryFee = 20;
   const discount = 30;
 

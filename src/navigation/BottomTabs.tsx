@@ -10,7 +10,8 @@ import CartScreen from '../screens/CartScreen';
 import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import StoreDetailsScreen from '../screens/StoreDetailsScreen';
-
+import SettingsScreen from '../screens/SettingsScreen';
+import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // ✅ missing before
@@ -39,6 +40,13 @@ const ShopsStack = () => (
   </Stack.Navigator>
 );
 
+const ProfileStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="ProfileMain" component={ProfileScreen} />
+    <Stack.Screen name="Settings" component={SettingsScreen} />
+    <Stack.Screen name="PaymentSettings" component={PaymentSettingsScreen} />
+  </Stack.Navigator>
+);
 
 
 
@@ -130,7 +138,7 @@ const BottomTabs = () => {
 
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{ tabBarLabel: 'Profile' }}
       />
     </Tab.Navigator>

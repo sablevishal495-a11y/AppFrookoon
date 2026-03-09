@@ -104,12 +104,12 @@ const SettingsScreen = () => {
             title="Profile Data"
             onPress={() => {}}
           />
-          <MenuItem
-            icon="card-outline"
-            title="Billing & Payment"
-            isLast
-            onPress={() => {}}
-          />
+         <MenuItem
+           icon="card-outline"
+           title="Billing & Payment"
+           isLast
+           onPress={() => navigation.navigate('PaymentSettings')}
+         />
         </View>
 
         {/* ── SETTINGS SECTION ── */}
