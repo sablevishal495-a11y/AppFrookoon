@@ -9,7 +9,7 @@ const App = () => {
 
 <UserProvider> 
      <CartProvider>
-          <NavigationContainer>
+          <NavigationContainer> 
             <AppNavigator />
           </NavigationContainer>
         </CartProvider>
