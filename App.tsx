@@ -7,7 +7,7 @@ import { UserProvider } from './src/context/UserContext';
 const App = () => {
   return (
 
-<UserProvider>
+<UserProvider> 
      <CartProvider>
           <NavigationContainer>
             <AppNavigator />
