@@ -13,7 +13,7 @@ const App = () => {
             <AppNavigator />
           </NavigationContainer>
         </CartProvider>
-        </UserProvider>
+        </UserProvider> 
   );
 };
 
