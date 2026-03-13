@@ -14,7 +14,7 @@ const App = () => {
           </NavigationContainer>
         </CartProvider>
         </UserProvider> 
-  );
+  ); 
 };
 
 export default App; s
