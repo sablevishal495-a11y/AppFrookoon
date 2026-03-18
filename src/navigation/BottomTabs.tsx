@@ -12,6 +12,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import StoreDetailsScreen from '../screens/StoreDetailsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
+import VoucherScreen from '../screens/VoucherScreen';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); // ✅ missing before
@@ -40,13 +42,18 @@ const ShopsStack = () => (
   </Stack.Navigator>
 );
 
-const ProfileStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ProfileMain" component={ProfileScreen} />
-    <Stack.Screen name="Settings" component={SettingsScreen} />
-    <Stack.Screen name="PaymentSettings" component={PaymentSettingsScreen} />
-  </Stack.Navigator>
-);
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="ProfileMain" component={ProfileScreen} />
+      <Stack.Screen name="Voucher" component={VoucherScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="PaymentSettings" component={PaymentSettingsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+
 
 
 

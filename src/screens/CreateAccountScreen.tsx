@@ -16,6 +16,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useUser } from "../context/UserContext";
+import { useRoute } from '@react-navigation/native';
 
 const CustomInput = ({
     label,
@@ -53,7 +54,10 @@ const CustomInput = ({
 const CreateAccountScreen = () => {
     const navigation = useNavigation<any>();
     const { saveUser } = useUser(); // ✅ pull saveUser from context
+  const route = useRoute<any>();
+  const phone = route.params?.phone;
 
+  console.log("PHONE RECEIVED:", phone);
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -61,11 +65,9 @@ const CreateAccountScreen = () => {
     const handleCreateAccount = () => {
         if (!fullName.trim() || !email.trim() || !password.trim()) return;
 
-        // ✅ This one line saves name + email globally
-        // HomeScreen, SettingsScreen, everywhere will update automatically
-        saveUser(fullName.trim(), email.trim());
+        saveUser(fullName.trim(), email.trim(), phone);
 
-        navigation.replace('Home');
+        navigation.replace("MainTabs");
     };
 
     const handleSocialSignUp = (provider: string) => {

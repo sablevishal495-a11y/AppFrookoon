@@ -19,6 +19,8 @@ import HelpSupportScreen from '../screens/HelpSupportScreen';
 import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
 
+
+
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -29,7 +31,7 @@ const AppNavigator = () => {
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Location" component={LocationScreen} />
-      <Stack.Screen name="Home" component={BottomTabs} />
+     <Stack.Screen name="MainTabs" component={BottomTabs} />
 <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
 <Stack.Screen name="EditProfile" component={EditProfileScreen} />
 <Stack.Screen name="AddressManagement" component={AddressManagementScreen} />

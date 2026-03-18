@@ -11,6 +11,8 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../context/UserContext';
+
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 
@@ -18,7 +20,7 @@ const LoginScreen = () => {
     const navigation = useNavigation<any>();
   const [expanded, setExpanded] = useState(false);
 const [phone, setPhone] = useState('');
-
+const { saveUser } = useUser();
   return (
     <View style={styles.container}>
       {/* Logo Circle */}
@@ -88,20 +90,20 @@ const [phone, setPhone] = useState('');
             </View>
 
 
-          <TouchableOpacity
-            style={styles.continueBtn}
-            onPress={() => {
-              if (phone.length !== 10) {
-                Alert.alert('Invalid Number', 'Please enter your phone number');
-                return;
-              }
+       <TouchableOpacity
+         style={styles.continueBtn}
+         onPress={() => {
+           if (phone.length !== 10) {
+             Alert.alert('Invalid Number', 'Please enter your phone number');
+             return;
+           }
 
-              navigation.navigate('OTP', { phone });
-            }}
-          >
-            <Text style={styles.continueText}>CONTINUE</Text>
-          </TouchableOpacity>
-
+           saveUser(undefined, undefined, phone); // ⭐ IMPORTANT
+           navigation.navigate('OTP', { phone });
+         }}
+       >
+         <Text style={styles.continueText}>CONTINUE</Text>
+       </TouchableOpacity>
 
 
 {/* Divider */}

@@ -10,8 +10,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../context/UserContext';
 
-// ─── Sub-components OUTSIDE the main component ───────────────────────────────
-// This is critical — keeping them outside prevents the hooks order error
 
 const QuickButton = ({ icon, label }: { icon: string; label: string }) => (
   <TouchableOpacity style={styles.quickButton}>
@@ -46,7 +44,7 @@ const MenuItem = ({
 const ProfileScreen = () => {
   // ✅ ALL hooks must be at the very top, no exceptions
   const navigation = useNavigation<any>();
-  const { userName, userEmail } = useUser();
+  const { userName, userEmail, userPhone } = useUser();s
 
   // Capitalize each word
   const displayName = userName
@@ -83,15 +81,25 @@ const ProfileScreen = () => {
             <Text style={{ fontSize: 38 }}>👤</Text>
           </View>
           <Text style={styles.name}>{displayName}</Text>
-          <Text style={styles.email}>{userEmail || 'No email set'}</Text>
+       <Text style={styles.info}>📧 {userEmail || 'Not added'}</Text>
+       <Text style={styles.info}>📱 {userPhone || 'Not added'}</Text>
         </View>
 
+
         {/* QUICK ACTIONS */}
-        <View style={styles.quickRow}>
-          <QuickButton icon="notifications-outline" label="Notification" />
-          <QuickButton icon="pricetag-outline" label="Voucher" />
-          <QuickButton icon="time-outline" label="History" />
-        </View>
+   <View style={styles.quickRow}>
+     <QuickButton icon="notifications-outline" label="Notification" />
+
+     <TouchableOpacity
+       style={styles.quickButton}
+       onPress={() => navigation.navigate('Voucher')}
+     >
+       <Icon name="pricetag-outline" size={22} color="#ff7a00" />
+       <Text style={styles.quickLabel}>Voucher</Text>
+     </TouchableOpacity>
+
+     <QuickButton icon="time-outline" label="History" />
+   </View>
 
         {/* MENU ITEMS */}
         <MenuItem
@@ -120,6 +128,7 @@ const ProfileScreen = () => {
 
         <View style={{ height: 40 }} />
       </ScrollView>
+
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-
+import { useUser } from '../context/UserContext';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ const OTPScreen = () => {
   const route = useRoute<any>();
   const phone = route.params?.phone || '';
   const [timer, setTimer] = useState(28);
-
+const { saveUser } = useUser();
    useEffect(() => {
      if (timer === 0) return;
 
@@ -112,7 +112,7 @@ const OTPScreen = () => {
           const enteredOtp = otp.join('');
 
           if (enteredOtp === '1234') {
-            navigation.replace('CreateAccount');
+            navigation.replace('CreateAccount', { phone: route.params.phone });
           } else {
             setError(true);
           }
