@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ShopsScreen = ({ navigation }: any) => {
+const ShopsScreen = ({ route }) => {
+    const { shop } = route.params;
 
   const stores = [
     {

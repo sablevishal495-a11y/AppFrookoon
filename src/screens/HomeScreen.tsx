@@ -32,6 +32,12 @@ const deals = [
   { id: 'd6', name: 'Rice', price: '₹40', image: require('../assets/rice.png') },
 ];
 
+const shops = [
+  { id: 's1', name: 'Shyam Grocery', image: require('../assets/shyam.png') },
+  { id: 's2', name: 'Pawar Grocery', image: require('../assets/shop0.png.png') },
+  { id: 's3', name: 'Kamal Grocery', image: require('../assets/shop2.png.png') },
+];
+
 const productsByCategory = {
   "Atta, Rice & Dals": [
     { id: 'c1', name: 'Aashirvaad Atta', price: '₹350', image: require('../assets/atta.png') },
@@ -74,7 +80,6 @@ const productsByCategory = {
 
 
   const HomeScreen = () => {
-
         const { userName} = useUser();
   const navigation = useNavigation();
   const { cartItems, addToCart } = useCart();
@@ -94,7 +99,9 @@ const productsByCategory = {
       image: item.image,
       quantity: 1,
     });
+
 }
+
 const displayName = userName
   ? userName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
   : 'Guest';
@@ -278,6 +285,35 @@ return (
             </View>
           )}
         />
+
+        <Text style={styles.dealsTitle}>
+          Top Shops
+        </Text>
+
+        <FlatList
+          data={shops}
+          keyExtractor={(item) => item.id}
+          scrollEnabled={false}
+          contentContainerStyle={{ paddingHorizontal: 14, marginTop: 6 }}
+          renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.shopCard}
+          onPress={() =>
+           navigation.navigate('Shops', {
+             screen: 'StoreDetails',
+             params: { shop: item },
+           })
+          }
+        >
+              <Image source={item.image} style={styles.shopImg} />
+
+              <Text style={styles.shopName}>{item.name}</Text>
+
+              <Text style={styles.shopArrow}>›</Text>
+            </TouchableOpacity>
+          )}
+        />
+
       </ScrollView>
     )}
 
@@ -872,7 +908,33 @@ cartThumb: {
   borderRadius: 6,
 },
 
+shopCard: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  padding: 12,
+  borderRadius: 16,
+  marginBottom: 12,
+  elevation: 3,
+},
 
+shopImg: {
+  width: 48,
+  height: 48,
+  borderRadius: 24,
+  marginRight: 12,
+},
+
+shopName: {
+  flex: 1,
+  fontSize: 16,
+  fontWeight: '600',
+},
+
+shopArrow: {
+  fontSize: 22,
+  color: '#ff7a00',
+},
 
 
 });

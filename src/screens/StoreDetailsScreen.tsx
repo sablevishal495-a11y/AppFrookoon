@@ -41,11 +41,11 @@ const storeProducts: any = {
 };
 
 const StoreDetailsScreen = ({ route, navigation }: any) => {
-  const { store } = route.params;
+  const { shop } = route.params;
 const categories = ['Atta', 'Rice', 'Dal'];
 const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 const { cartItems, addToCart } = useCart();
-  const allProducts = storeProducts[store.name] || [];
+  const allProducts = storeProducts[shop.name] || [];
 
   const filteredProducts = allProducts.filter(
     (item: any) => item.category === selectedCategory
@@ -68,23 +68,23 @@ const { cartItems, addToCart } = useCart();
           <Icon name="arrow-back" size={22} color="#000" />
         </TouchableOpacity>
 
-        <Text style={styles.storeTitle}>{store.name}</Text>
+        <Text style={styles.storeTitle}>{shop.name}</Text>
 
         {/* STORE IMAGE */}
-        <Image source={store.image} style={styles.mainImage} />
+        <Image source={shop.image} style={styles.mainImage} />
 
         {/* STORE CARD */}
         <View style={styles.storeInfoCard}>
-          <Image source={store.image} style={styles.storeThumb} />
+          <Image source={shop.image} style={styles.storeThumb} />
           <View>
-            <Text style={{ fontWeight: 'bold' }}>{store.name}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{shop.name}</Text>
             <Text style={{ fontSize: 12 }}>Online & In Store</Text>
           </View>
         </View>
 
         {/* CATEGORY FILTER */}
         <Text style={styles.sectionTitle}>
-          Categories in {store.name}
+          Categories in {shop.name}
         </Text>
 
         <View style={styles.categoryRow}>
