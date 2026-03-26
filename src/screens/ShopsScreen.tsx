@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ShopsScreen = ({ route }) => {
-    const { shop } = route.params;
+const ShopsScreen = ({ navigation }) => {
+
 
   const stores = [
     {
@@ -118,7 +118,7 @@ const ShopsScreen = ({ route }) => {
      style={styles.storeCard}
      activeOpacity={0.8}
      onPress={() =>
-       navigation.navigate('StoreDetails', { store })
+      navigation.navigate('StoreDetails', { shop: store })
      }
    >
      <Image source={store.image} style={styles.storeImage} />

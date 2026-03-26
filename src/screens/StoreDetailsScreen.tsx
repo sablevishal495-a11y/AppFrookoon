@@ -41,7 +41,7 @@ const storeProducts: any = {
 };
 
 const StoreDetailsScreen = ({ route, navigation }: any) => {
-  const { shop } = route.params;
+ const shop = route?.params?.shop;
 const categories = ['Atta', 'Rice', 'Dal'];
 const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 const { cartItems, addToCart } = useCart();
