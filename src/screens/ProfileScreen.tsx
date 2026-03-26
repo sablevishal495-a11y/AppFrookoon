@@ -44,7 +44,7 @@ const MenuItem = ({
 const ProfileScreen = () => {
   // ✅ ALL hooks must be at the very top, no exceptions
   const navigation = useNavigation<any>();
-  const { userName, userEmail, userPhone } = useUser();s
+  const { userName, userEmail, userPhone } = useUser();
 
   // Capitalize each word
   const displayName = userName
