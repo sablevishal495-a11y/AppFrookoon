@@ -237,10 +237,7 @@ const ProfileScreen = () => {
           <Text style={styles.email}>{userEmail || 'No email set'}</Text>
 
           {/* Member badge */}
-          <View style={styles.memberBadge}>
-            <Icon name="star" size={11} color="#ff7a00" />
-            <Text style={styles.memberText}>Frookoon Member</Text>
-          </View>
+
         </View>
 
         {/* QUICK ACTIONS */}

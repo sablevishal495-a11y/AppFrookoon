@@ -32,6 +32,12 @@ const deals = [
   { id: 'd6', name: 'Rice', price: '₹40', image: require('../assets/rice.png') },
 ];
 
+const shops = [
+  { id: 's1', name: 'Shyam Grocery', image: require('../assets/shyam.png') },
+  { id: 's2', name: 'Pawar Grocery', image: require('../assets/shop0.png.png') },
+  { id: 's3', name: 'Kamal Grocery', image: require('../assets/shop2.png.png') },
+];
+
 const productsByCategory = {
   "Atta, Rice & Dals": [
     { id: 'c1', name: 'Aashirvaad Atta', price: '₹350', image: require('../assets/atta.png') },
@@ -74,7 +80,6 @@ const productsByCategory = {
 
 
   const HomeScreen = () => {
-
         const { userName} = useUser();
   const navigation = useNavigation();
   const { cartItems, addToCart } = useCart();
@@ -94,7 +99,9 @@ const productsByCategory = {
       image: item.image,
       quantity: 1,
     });
+
 }
+
 const displayName = userName
   ? userName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
   : 'Guest';
@@ -129,8 +136,10 @@ return (
         </View>
 
         {/* PRODUCTS */}
-        <FlatList
-          data={productsByCategory[selectedCategory] || []}
+    <FlatList
+      key="category2"
+      data={productsByCategory[selectedCategory] || []}
+      numColumns={2}
 
           keyExtractor={(item) => item.id}
           numColumns={2}
@@ -197,7 +206,11 @@ return (
 
       </View>
     ) : (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
+        style={{ backgroundColor: '#EDE4E1' }}
+      >
         <Image
           source={require('../assets/logo.png')}
           style={styles.logo}
@@ -256,28 +269,102 @@ return (
             </TouchableOpacity>
           )}
         />
+     <Text style={styles.dealsTitle}>
+       Top deals on bestsellers
+     </Text>
 
-        <Text style={styles.dealsTitle}>
-          Top deals on bestsellers
-        </Text>
+    <FlatList
+      key="deals3"
+      data={deals}
+       keyExtractor={(item) => item.id}
+       numColumns={3}
+       scrollEnabled={false}
+       contentContainerStyle={{ paddingHorizontal: 14 }}
+       columnWrapperStyle={{ justifyContent: 'space-between' }}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.dealCard}
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate('ProductDetails', {
+              product: item,
+            })
+          }
+        >
+          <Image source={item.image} style={styles.dealImg} />
 
-        <FlatList
-         data={deals}
-          keyExtractor={(item) => item.id}
-          numColumns={3}
-          scrollEnabled={false}
-          contentContainerStyle={{ paddingHorizontal: 14 }}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          renderItem={({ item }) => (
-            <View style={styles.dealCard}>
-              <Image source={item.image} style={styles.dealImg} />
-              <Text style={styles.dealName} numberOfLines={2}>
-                {item.name}
-              </Text>
-              <Text style={styles.dealPrice}>{item.price}</Text>
-            </View>
-          )}
-        />
+          <Text style={styles.dealName} numberOfLines={2}>
+            {item.name}
+          </Text>
+
+          <Text style={styles.dealPrice}>
+            {item.price}
+          </Text>
+        </TouchableOpacity>
+      )}
+     />
+
+      <Text style={styles.dealsTitle}>
+        Top Shops
+      </Text>
+
+      {/* ⭐ SHOPS LIST */}
+      <FlatList
+        data={shops}
+        keyExtractor={(item) => item.id}
+        scrollEnabled={false}
+        contentContainerStyle={{ paddingHorizontal: 14, marginTop: 12 }}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.shopCard}
+            onPress={() =>
+              navigation.navigate('Shops', {
+                screen: 'StoreDetails',
+                params: { shop: item },
+              })
+            }
+          >
+            <Image source={item.image} style={styles.shopImg} />
+            <Text style={styles.shopName}>{item.name}</Text>
+            <Text style={styles.shopArrow}>›</Text>
+          </TouchableOpacity>
+        )}
+      />
+
+      {/* ⭐ PRICE COMPARE CARD (ONLY ONCE) */}
+      <View style={styles.priceCompareCard}>
+        <View style={styles.tagIcon}>
+          <Text style={{ fontSize: 22 }}>🏷️</Text>
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <Text style={styles.compareTitle}>
+            Price Compare. Pay Less
+          </Text>
+
+          <Text style={styles.compareSub}>
+            Compare Price and Get Best Deals
+          </Text>
+        </View>
+
+        <Text style={{ fontWeight: 'bold' }}>✕</Text>
+      </View>
+
+      {/* ⭐ DISCOUNT HORIZONTAL LIST */}
+      <FlatList
+        data={shops}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingLeft: 14, marginTop: 10 }}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.discountCard}>
+            <Image source={item.image} style={styles.discountImg} />
+            <Text style={styles.discountPercent}>10% Discounts</Text>
+            <Text style={styles.discountSub}>Pay with Google Pay</Text>
+          </TouchableOpacity>
+        )}
+      />
+
       </ScrollView>
     )}
 
@@ -399,7 +486,7 @@ export default HomeScreen;
 
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: '#EDE4E1' },
 
   logo: { width: 40, height: 40, marginTop: 10, marginLeft: 16 },
 
@@ -872,7 +959,91 @@ cartThumb: {
   borderRadius: 6,
 },
 
+shopCard: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  padding: 14,
+  borderRadius: 18,
+  marginBottom: 12,
+  borderWidth: 1.2,
+  borderColor: '#000',
+  elevation: 3,
+},
+shopImg: {
+  width: 48,
+  height: 48,
+  borderRadius: 24,
+  marginRight: 12,
+},
 
+shopName: {
+  flex: 1,
+  fontSize: 16,
+  fontWeight: '600',
+},
 
+shopArrow: {
+  fontSize: 22,
+  color: '#ff7a00',
+},
+priceCompareCard: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  marginHorizontal: 14,
+  marginTop: 14,
+  paddingVertical: 20,
+  paddingHorizontal: 18,
+  borderRadius: 20,
+  elevation: 4,
+},
+
+tagIcon: {
+  width: 52,
+  height: 52,
+  borderRadius: 14,
+  backgroundColor: '#ffe8d0',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginRight: 14,
+},
+
+compareTitle: {
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+
+compareSub: {
+  fontSize: 13,
+  color: '#666',
+  marginTop: 3,
+},
+
+discountCard: {
+  width: 130,
+  height: 150,
+  backgroundColor: '#fff',
+  borderRadius: 18,
+  padding: 10,
+  marginRight: 12,
+  elevation: 3,
+},
+
+discountImg: {
+  width: '100%',
+  height: 70,
+  resizeMode: 'contain',
+},
+
+discountPercent: {
+  fontWeight: 'bold',
+  marginTop: 8,
+},
+
+discountSub: {
+  fontSize: 11,
+  color: '#666',
+},
 
 });

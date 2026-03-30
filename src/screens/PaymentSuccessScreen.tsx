@@ -21,7 +21,14 @@ const PaymentSuccessScreen = () => {
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.outlineBtn}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() =>
+            navigation.navigate('MainTabs', {
+              screen: 'Home',
+              params: {
+                screen: 'HomeMain',
+              },
+            })
+          }
         >
           <Text style={styles.outlineText}>Continue Shopping</Text>
         </TouchableOpacity>
