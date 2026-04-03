@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-/* ------------------ TYPES ------------------ */
+/* --- TYPES ---- */
 type CartItem = {
   id: number;
   name: string;
