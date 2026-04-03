@@ -13,7 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ─── Types ──
 interface Address {
   id: string;
   type: 'Home' | 'Office' | 'Other';
@@ -22,7 +22,7 @@ interface Address {
   selected: boolean;
 }
 
-// ─── Icon per address type ────────────────────────────────────────────────────
+// ─── Icon per address type ──
 const typeIcon: Record<string, string> = {
   Home:   'home',
   Office: 'business',
