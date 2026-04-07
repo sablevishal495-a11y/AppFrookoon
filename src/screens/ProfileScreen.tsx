@@ -420,7 +420,7 @@ const modalStyles = StyleSheet.create({
   cancelText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#999',
+    color:  '#999',
   },
 });
 
