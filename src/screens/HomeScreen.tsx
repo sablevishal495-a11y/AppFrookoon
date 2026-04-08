@@ -370,9 +370,6 @@ const styles = StyleSheet.create({
    backgroundColor: '#ffffff', // 🔥 FIXED
  },
 
-
-
-  // Orange logo circle (matches reference exactly)
 logoCircle: {
   justifyContent: 'center',
   alignItems: 'center',
