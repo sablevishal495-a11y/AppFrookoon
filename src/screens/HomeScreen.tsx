@@ -334,8 +334,8 @@ const HomeScreen = () => {
             <Text style={styles.profileName}>{displayName}</Text>
             <View style={styles.divider} />
             {[
-              { label: '⚙️ Settings', screen: 'Settings' },
-              { label: '📦 My Orders', screen: 'MyOrders' },
+              { label: ' Settings', screen: 'Settings' },
+              { label: ' My Orders', screen: 'MyOrders' },
             ].map(btn => (
               <TouchableOpacity
                 key={btn.screen}
@@ -349,7 +349,7 @@ const HomeScreen = () => {
               style={styles.menuBtn}
               onPress={() => { setMenuVisible(false); navigation.replace('Login'); }}
             >
-              <Text style={[styles.menuBtnText, { color: 'red' }]}>🔐 Log Out</Text>
+              <Text style={[styles.menuBtnText, { color: 'red' }]}> Log Out</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -665,7 +665,7 @@ profileCard: {
     width:           80,
     height:          80,
     borderRadius:    40,
-    backgroundColor: '#222',
+
     justifyContent:  'center',
     alignItems:      'center',
     marginTop:       10,
