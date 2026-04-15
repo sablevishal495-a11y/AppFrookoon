@@ -13,6 +13,7 @@ import StoreDetailsScreen from '../screens/StoreDetailsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import PaymentSettingsScreen from '../screens/PaymentSettingsScreen';
 import VoucherScreen from '../screens/VoucherScreen';
+import BrandProductsScreen from '../screens/BrandProductsScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -22,6 +23,7 @@ const HomeStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeMain" component={HomeScreen} />
     <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+    <Stack.Screen name="BrandProducts" component={BrandProductsScreen} />
   </Stack.Navigator>
 );
 
@@ -29,7 +31,7 @@ const CategoriesStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="CategoriesMain" component={CategoriesScreen} />
     <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
-
+    <Stack.Screen name="BrandProducts" component={BrandProductsScreen} />
   </Stack.Navigator>
 );
 
@@ -38,7 +40,7 @@ const ShopsStack = () => (
     <Stack.Screen name="ShopsMain" component={ShopsScreen} />
     <Stack.Screen name="StoreDetails" component={StoreDetailsScreen} />
     <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
-
+    <Stack.Screen name="BrandProducts" component={BrandProductsScreen} />
   </Stack.Navigator>
 );
 
@@ -51,6 +53,8 @@ const ProfileStack = () => {
       <Stack.Screen name="PaymentSettings" component={PaymentSettingsScreen} />
     </Stack.Navigator>
   );
+
+
 };
 
 
@@ -102,6 +106,7 @@ const BottomTabs = () => {
         name="Categories"
         component={CategoriesStack}
       />
+
 
 <Tab.Screen
   name="Shops"

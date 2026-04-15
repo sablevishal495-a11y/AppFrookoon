@@ -6,7 +6,6 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
-    SafeAreaView,
     KeyboardAvoidingView,
     Platform,
     BackHandler,
@@ -17,6 +16,8 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useUser } from "../context/UserContext";
 import { useRoute } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const CustomInput = ({
     label,

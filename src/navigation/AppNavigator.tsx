@@ -49,6 +49,7 @@ const AppNavigator = () => {
   }}
 />
 
+
     </Stack.Navigator>
   );
 };

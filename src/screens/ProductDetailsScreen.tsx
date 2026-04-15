@@ -40,11 +40,18 @@ const ProductDetailsScreen = ({ route, navigation }) => {
   const currentQty = cartItem ? cartItem.quantity : 0;
 
   const similarProducts = [
-    { id: 's1', name: 'Tomato',      price: 35,  image: require('../assets/tomato.png') },
-    { id: 's2', name: 'Onion',       price: 35,  image: require('../assets/onion.png') },
-    { id: 's3', name: 'Cauliflower', price: 35,  image: require('../assets/cauliflower.png') },
+    { id: 's1', name: 'Rice Bag',      price: 350,  image: require('../assets/rice.png') },
+    { id: 's2', name: 'Kurkure',       price: 20,  image: require('../assets/kurkure.png') },
+    { id: 's3', name: 'Shampoo', price: 135,  image: require('../assets/shampoo.png') },
     { id: 's4', name: 'Atta',        price: 380, image: require('../assets/atta.png') },
   ];
+
+const brands = [
+  { id: 'b1', name: 'Aashirvaad', image: require('../assets/ashirvad.png') },
+  { id: 'b2', name: 'Fortune', image: require('../assets/fortune.png') },
+  { id: 'b3', name: 'Whole Farm', image: require('../assets/wholefarm.png') },
+  { id: 'b4', name: 'Silver Coin', image: require('../assets/silvercoin.png') },
+];
 
   const carouselImages  = product.images ?? [product.image];
   const cartQtyTotal    = cartItems.reduce((s, i) => s + (i.quantity || 0), 0);
@@ -297,6 +304,34 @@ const ProductDetailsScreen = ({ route, navigation }) => {
           />
         </View>
 
+    {/* ── BRANDS IN THIS CATEGORY ── */}
+    <View style={[styles.card, { marginTop: 8 }]}>
+      <Text style={styles.sectionTitle}>Brands in this category</Text>
+
+      <FlatList
+        data={brands}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingTop: 14, gap: 12 }}
+        renderItem={({ item }) => (
+<TouchableOpacity
+  style={styles.brandCard}
+  activeOpacity={0.8}
+  onPress={() =>
+    navigation.navigate('BrandProducts', { brand: item.name })
+  }
+>
+  <View style={styles.brandBox}>
+    <Image source={item.image} style={styles.brandImg} />
+  </View>
+
+  <Text style={styles.brandName}>{item.name}</Text>
+</TouchableOpacity>
+        )}
+      />
+    </View>
+
       </ScrollView>
 
       {/* ── VIEW CART STRIP — only when cart has items ── */}
@@ -376,13 +411,13 @@ const styles = StyleSheet.create({
   },
   carouselSlide: {
     width: SCREEN_W - 32,
-    height: 190,
+    height: 300,
     backgroundColor: '#F7F7F7',
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  carouselImage: { width: '80%', height: '88%', resizeMode: 'contain' },
+  carouselImage: { width: '100%', height: '100%', resizeMode: 'contain' },
   dotsRow: { flexDirection: 'row', justifyContent: 'center', gap: 6, marginTop: 12 },
   dot:       { width: 7,  height: 7,  borderRadius: 4, backgroundColor: '#ddd' },
   dotActive: { width: 18, height: 7,  borderRadius: 4, backgroundColor: ORANGE },
@@ -634,4 +669,34 @@ headerAvatar: {
   justifyContent: 'center',
   alignItems: 'center',
 },
+brandCard: {
+  width: 90,
+  alignItems: 'center',
+},
+
+brandBox: {
+  width: 80,
+  height: 80,
+  borderRadius: 12,
+  backgroundColor: '#fff',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: '#eee',
+},
+
+brandImg: {
+  width: '80%',
+  height: '80%',
+  resizeMode: 'contain',
+},
+
+brandName: {
+  fontSize: 11,
+  color: '#333',
+  marginTop: 6,
+  textAlign: 'center',
+},
+
+
 });

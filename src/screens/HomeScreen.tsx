@@ -12,10 +12,9 @@ import {
   FlatList,
   Modal,
   ScrollView,
-  SafeAreaView,
   StatusBar,
 } from 'react-native';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const categories = [
