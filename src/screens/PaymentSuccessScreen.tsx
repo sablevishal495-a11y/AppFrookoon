@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 
   outlineBtn: {
     borderWidth: 1,
-    borderColor: '#ff8c00',
+    borderColor: 'black',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 20,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
 
   filledBtn: {
-    backgroundColor: '#ff8c00',
+    backgroundColor: '#0047AB',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 20,

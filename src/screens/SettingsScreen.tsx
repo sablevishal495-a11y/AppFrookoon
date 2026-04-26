@@ -238,18 +238,18 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: '#ffe5cc',
+    backgroundColor: '#D9D9D9',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 14,
     borderWidth: 2,
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
   },
 
   userName: {
     fontWeight: '700',
     fontSize: 15,
-    color: '#ff7a00',
+    color: '#0047AB',
     marginBottom: 3,
   },
 
@@ -355,9 +355,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
     paddingVertical: 15,
     borderRadius: 16,
-    backgroundColor: '#fff5f5',
+    backgroundColor: '#0047AB',
     borderWidth: 1,
-    borderColor: '#ffcccc',
+    borderColor: '#0047AB',
     elevation: 2,
     gap: 8,
   },
@@ -365,6 +365,6 @@ const styles = StyleSheet.create({
   logoutText: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#ff4444',
+    color: 'white',
   },
 });

@@ -221,7 +221,7 @@ const ProfileScreen = () => {
             style={styles.cartCircle}
             onPress={() => navigation.navigate('Settings')}
           >
-            <Icon name="settings-outline" size={20} color="#ff7a00" />
+            <Icon name="settings-outline" size={20} color="#0047AB" />
           </TouchableOpacity>
         </View>
 
@@ -272,7 +272,7 @@ const ProfileScreen = () => {
           onPress={() => setLogoutModalVisible(true)}
           activeOpacity={0.8}
         >
-          <Icon name="log-out-outline" size={20} color="#e53935" />
+          <Icon name="log-out-outline" size={20} color="black" />
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
 
@@ -342,7 +342,7 @@ const modalStyles = StyleSheet.create({
     height: 72,
     borderRadius: 36,
     borderWidth: 2,
-    borderColor: '#e5393520',
+    borderColor: '#0047AB',
   },
 
   title: {
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
     height: 118,
     borderRadius: 59,
     borderWidth: 3,
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 3,
@@ -541,12 +541,12 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#fff',
     borderWidth: 1.5,
-    borderColor: '#ffd0ce',
+    borderColor: 'black',
     elevation: 2,
-    shadowColor: '#e53935',
+    shadowColor: 'black',
     shadowOpacity: 0.08,
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 2 },
   },
-  logoutText: { fontSize: 15, fontWeight: '700', color: '#e53935' },
+  logoutText: { fontSize: 15, fontWeight: '700', color: 'black' },
 });
