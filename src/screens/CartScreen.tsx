@@ -126,7 +126,7 @@ const SimilarCard = ({
 
       {/* + button on right */}
       <TouchableOpacity style={simStyles.addBtn} onPress={onAdd} activeOpacity={0.8}>
-        <Icon name="add" size={20} color="#ff7a00" />
+        <Icon name="add" size={20} color="white" />
       </TouchableOpacity>
     </View>
 
@@ -155,7 +155,7 @@ const CartScreen = () => {
     return (
       <View style={styles.emptyContainer}>
         <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-        <View style={styles.logoWrapper}><Logo size={45} /></View>
+        <View style={styles.logoWrapper}><Logo size={100} /></View>
         <View style={styles.headerRow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Icon name="chevron-back" size={24} color="#000" />
@@ -362,7 +362,7 @@ const cardStyles = StyleSheet.create({
   },
   weightText: { fontSize: 11, color: '#666', fontWeight: '600' },
 
-  price: { fontSize: 14, fontWeight: '800', color: '#ff7a00', marginTop: 6 },
+  price: { fontSize: 14, fontWeight: '800', color: '#0047AB', marginTop: 6 },
 
   stepperWrap: {
     flexDirection: 'row',
@@ -373,10 +373,10 @@ const cardStyles = StyleSheet.create({
   },
   stepBtn: {
     width: 32, height: 36,
-    backgroundColor: '#ddd',
+    backgroundColor: '#0047AB',
     justifyContent: 'center', alignItems: 'center',
   },
-  stepBtnAdd: { backgroundColor: '#ff7a00' },
+  stepBtnAdd: { backgroundColor: '#0047AB' },
   qty: {
     width: 32,
     textAlign: 'center',
@@ -406,7 +406,7 @@ const simStyles = StyleSheet.create({
   discountBadge: {
     position: 'absolute',
     top: 8, left: 8,
-    backgroundColor: '#22a55b',
+    backgroundColor: '#0047AB',
     borderRadius: 8,
     paddingHorizontal: 5, paddingVertical: 2,
     zIndex: 1,
@@ -427,15 +427,15 @@ const simStyles = StyleSheet.create({
     flex: 1,
   },
   weight: { fontSize: 11, color: '#aaa', fontWeight: '500', marginBottom: 3 },
-  priceRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  priceRow: { flexDirection: 'row', color : '#0047AB',alignItems: 'center', gap: 5 },
   originalPrice: { fontSize: 11, color: '#bbb', textDecorationLine: 'line-through' },
-  discountedPrice: { fontSize: 13, fontWeight: '800', color: '#ff7a00' },
+  discountedPrice: { fontSize: 13, fontWeight: '800', color: '#0047AB' },
 
   addBtn: {
     width: 32, height: 32, borderRadius: 10,
-    borderWidth: 1.5, borderColor: '#ff7a00',
+    borderWidth: 1.5, borderColor: '#0047AB',
     justifyContent: 'center', alignItems: 'center',
-    backgroundColor: '#fff5ee',
+    backgroundColor: '#0047AB',
   },
 });
 
@@ -444,8 +444,7 @@ const styles = StyleSheet.create({
   container:      { flex: 1, backgroundColor: '#f7f7f7' },
   emptyContainer: { flex: 1, backgroundColor: '#fff' },
 
-  logoWrapper: { paddingHorizontal: 16, paddingTop: 16 },
-
+logoWrapper: { paddingHorizontal: 16, paddingTop: 16, height: 70, justifyContent: 'center' },
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -460,7 +459,7 @@ const styles = StyleSheet.create({
   },
   cartCountBadge: {
     width: 26, height: 26, borderRadius: 13,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     justifyContent: 'center', alignItems: 'center',
   },
   cartCountText: { fontSize: 12, fontWeight: '800', color: '#fff' },
@@ -484,10 +483,10 @@ const styles = StyleSheet.create({
     borderRadius: 20, borderWidth: 1.5,
     borderColor: '#e0e0e0', backgroundColor: '#fafafa',
   },
-  tipBtnActive:     { borderColor: '#ff7a00', backgroundColor: '#fff5ee' },
+  tipBtnActive:     { borderColor: '#0047AB', backgroundColor: '#fff5ee' },
   tipEmoji:         { fontSize: 13 },
   tipBtnText:       { fontSize: 13, fontWeight: '600', color: '#666' },
-  tipBtnTextActive: { color: '#ff7a00', fontWeight: '800' },
+  tipBtnTextActive: { color: '#0047AB', fontWeight: '800' },
 
   priceCard: {
     backgroundColor: '#fff', marginHorizontal: 16,
@@ -503,7 +502,7 @@ const styles = StyleSheet.create({
   priceValue:  { fontSize: 14, fontWeight: '700', color: '#1a1a1a' },
   priceDivider: { height: 1, backgroundColor: '#f0f0f0', marginVertical: 8 },
   priceTotalLabel: { fontSize: 16, fontWeight: '900', color: '#1a1a1a' },
-  priceTotalValue: { fontSize: 18, fontWeight: '900', color: '#ff7a00' },
+  priceTotalValue: { fontSize: 18, fontWeight: '900', color: '#0047AB' },
 
   checkoutWrap: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
@@ -516,9 +515,9 @@ const styles = StyleSheet.create({
   checkoutBtn: {
     flexDirection: 'row', alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#ff7a00', borderRadius: 16,
+    backgroundColor: '#0047AB', borderRadius: 16,
     paddingVertical: 14, paddingHorizontal: 20,
-    elevation: 4, shadowColor: '#ff7a00',
+    elevation: 4, shadowColor: '#0047AB',
     shadowOpacity: 0.35, shadowRadius: 8, shadowOffset: { width: 0, height: 3 },
   },
   checkoutText:       { fontSize: 15, fontWeight: '800', color: '#fff', letterSpacing: 0.5 },
@@ -528,6 +527,6 @@ const styles = StyleSheet.create({
   emptyWrap:  { flex: 1, justifyContent: 'center', alignItems: 'center', gap: 10, marginTop: 80 },
   emptyTitle: { fontSize: 20, fontWeight: '800', color: '#bbb' },
   emptySub:   { fontSize: 14, color: '#ccc' },
-  shopBtn:    { marginTop: 10, backgroundColor: '#ff7a00', borderRadius: 14, paddingHorizontal: 32, paddingVertical: 12 },
+  shopBtn:    { marginTop: 10, backgroundColor: '#0047AB', borderRadius: 14, paddingHorizontal: 32, paddingVertical: 12 },
   shopBtnText: { fontSize: 15, fontWeight: '700', color: '#fff' },
 });
