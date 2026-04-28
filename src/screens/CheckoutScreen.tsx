@@ -277,7 +277,7 @@ input: {
 },
 
 saveBtn: {
-  backgroundColor: '#ff8c00',
+  backgroundColor: '#0047AB',
   marginTop: 10,
   padding: 8,
   borderRadius: 8,
@@ -292,7 +292,7 @@ saveBtn: {
   },
 
   editText: {
-    color: '#ff8c00',
+    color: '#0047AB',
     fontWeight: '600',
   },
 
@@ -319,7 +319,7 @@ saveBtn: {
 
   totalAmount: {
     fontWeight: '700',
-    color: '#ff8c00',
+    color: '#0047AB',
   },
 
   paymentRow: {
@@ -330,13 +330,13 @@ saveBtn: {
 
   addPayment: {
     marginTop: 8,
-    color: '#ff8c00',
+    color: '#0047AB',
     fontWeight: '600',
     textAlign: 'right',
   },
 
   payButton: {
-    backgroundColor: '#ff8c00',
+    backgroundColor: '#0047AB',
     padding: 16,
     borderRadius: 12,
     margin: 16,

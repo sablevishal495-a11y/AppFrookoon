@@ -15,6 +15,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const categories = [
@@ -33,9 +34,9 @@ const categories = [
 ];
 
 const favoriteItems = [
-  { id: 'f1', name: 'Atta',                       weight: '500 g', mrp: '₹25', price: '₹24', discount: '5% off', image: require('../assets/atta.png') },
-  { id: 'f2', name: 'Kurkure',  weight: '91 g',  price: '₹22', image: require('../assets/kurkure.png') },
-  { id: 'f3', name: 'Kurkure Lite',                weight: '50 g',  price: '₹22', image: require('../assets/kurkure.png') },
+  { id: 'f1', name: 'Tata Salt',          weight: '500 g', mrp: '₹25', price: '₹24', discount: '5% off', image: require('../assets/atta.png') },
+  { id: 'f2', name: 'Kurkure Yummy Puffcorn Yumm...', weight: '50 g', price: '₹22', image: require('../assets/kurkure.png') },
+  { id: 'f3', name: 'Kurkure Yummy Puffcorn',          weight: '50 g', price: '₹22', image: require('../assets/kurkure.png') },
 ];
 
 const productsByCategory: Record<string, any[]> = {
@@ -151,15 +152,15 @@ const HomeScreen = () => {
   // ── HOME ───────────────────────────────────────────────────────────────────
   return (
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ebebeb" />
+      {/* ✅ CHANGE: StatusBar now light-content to match dark blue header */}
+      <StatusBar barStyle="light-content" backgroundColor="#0047AB" />
 
       {/* ══════════════════════════════════════
-          TOP BAR
-          Logo circle | delivery info | ≡ btn
+          TOP BAR  ✅ CHANGE: dark blue background (#0047AB) matching Figma
       ══════════════════════════════════════ */}
       <View style={styles.topBar}>
 
-        {/* Top Row → ONLY LOGO */}
+        {/* Top Row → LOGO */}
         <View style={styles.topRow}>
           <View style={styles.logoCircle}>
             <Image
@@ -174,25 +175,26 @@ const HomeScreen = () => {
         <View style={styles.bottomRow}>
 
           <View style={styles.deliveryBlock}>
+            {/* ✅ CHANGE: "13 Minutes" now white text on dark bg */}
             <Text style={styles.deliveryMinutes}>13 Minutes</Text>
 
             <View style={styles.deliveryAddressRow}>
+              {/* ✅ CHANGE: Address text now white */}
               <Text style={styles.deliveryToHome}>To Home – </Text>
               <Text style={styles.deliveryAddress} numberOfLines={1}>
-                123 MG ROAD, BANGALURU
+                123 MG ROAD , BANGALURU
               </Text>
               <Text style={styles.deliveryChevron}> ▾</Text>
             </View>
           </View>
 
-          {/* Menu button on right */}
+          {/* ✅ CHANGE: Menu button is now a white circle with dark hamburger lines */}
           <TouchableOpacity
             style={styles.iconCircle}
             onPress={() => setMenuVisible(true)}
           >
-            <View style={styles.burger} />
-            <View style={styles.burger} />
-            <View style={styles.burger} />
+            {/* ✅ CHANGE: Profile icon circle (white bg with person emoji) like Figma */}
+            <Text style={{ fontSize: 18 }}>👤</Text>
           </TouchableOpacity>
 
         </View>
@@ -200,19 +202,17 @@ const HomeScreen = () => {
       </View>
 
       {/* ══════════════════════════════════════
-          SEARCH ROW
-          Pill search | ≡ circle
+          SEARCH ROW  ✅ CHANGE: still inside blue header area
       ══════════════════════════════════════ */}
       <View style={styles.searchRow}>
         <View style={styles.searchPill}>
           <Text style={styles.searchMag}>🔍</Text>
           <TextInput
-            placeholder="Search..."
+            placeholder="Search for the product/store..."
             placeholderTextColor="#b0b0b0"
             style={styles.searchInput}
           />
         </View>
-
       </View>
 
       {/* ══════════════════════════════════════
@@ -267,6 +267,7 @@ const HomeScreen = () => {
 
               <View style={styles.favBottom}>
                 <Text style={styles.favPrice}>{item.price}</Text>
+                {/* ✅ CHANGE: + button now matches Figma (plain + icon, no border box) */}
                 <TouchableOpacity style={styles.favPlusBtn} onPress={() => handleAdd(item)}>
                   <Text style={styles.favPlusText}>+</Text>
                 </TouchableOpacity>
@@ -295,6 +296,7 @@ const HomeScreen = () => {
               activeOpacity={0.7}
               onPress={() => setSelectedCategory(item.title)}
             >
+              {/* ✅ CHANGE: category box now rounded circle style like Figma */}
               <View style={styles.catBox}>
                 <Image source={item.image} style={styles.catImg} />
               </View>
@@ -306,22 +308,39 @@ const HomeScreen = () => {
       </ScrollView>
 
       {/* ══════════════════════════════════════
+          CART BAR
+      ══════════════════════════════════════ */}
+      {totalItems > 0 && (
+        <TouchableOpacity style={styles.cartBar} onPress={() => navigation.navigate('Cart')} activeOpacity={0.9}>
+          <View style={styles.cartThumbWrap}>
+            <Image source={require('../assets/cart.png')} style={styles.cartThumb} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cartBarTitle}>View cart</Text>
+            <Text style={styles.cartBarSub}>{totalItems} item{totalItems !== 1 ? 's' : ''}</Text>
+          </View>
+          <View style={styles.cartArrowCircle}>
+            <Text style={styles.cartArrow}>➜</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+
+      {/* ══════════════════════════════════════
           PROFILE MODAL
       ══════════════════════════════════════ */}
- <Modal
-   transparent
-   animationType="fade"
-   visible={menuVisible}
-   onRequestClose={() => setMenuVisible(false)}
- >
-   <View style={[styles.modalOverlay, { zIndex: 9999, elevation: 9999 }]}>
+      <Modal
+        transparent
+        animationType="fade"
+        visible={menuVisible}
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        <View style={[styles.modalOverlay, { zIndex: 9999, elevation: 9999 }]}>
 
-     {/* Click outside to close */}
-     <TouchableOpacity
-       style={{ flex: 1 }}
-       activeOpacity={1}
-       onPress={() => setMenuVisible(false)}
-     />
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            activeOpacity={1}
+            onPress={() => setMenuVisible(false)}
+          />
 
           <View style={styles.profileCard}>
             <TouchableOpacity style={styles.closeBtn} onPress={() => setMenuVisible(false)}>
@@ -364,84 +383,104 @@ export default HomeScreen;
 const styles = StyleSheet.create({
 
   // Root
- root: {
-   flex: 1,
-   backgroundColor: '#ffffff', // 🔥 FIXED
- },
+  root: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
 
-logoCircle: {
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginBottom: 4,
-},
+  // ── Top Bar  ✅ CHANGE: dark navy blue to match Figma header
+  topBar: {
+    backgroundColor: '#0047AB',   // ✅ dark navy blue (Figma header colour)
+    paddingHorizontal: 16,
+    paddingTop: 6,
+    paddingBottom: 10,
+  },
+
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+
+  bottomRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  // Logo circle — no background needed on dark header
+  logoCircle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 2,
+  },
   logoImg: { width: 50, height: 50 },
 
   // Delivery text block
-  deliveryBlock: { flex: 1 },
-deliveryMinutes: {
-  fontSize: 18,
-  fontWeight: '800',
-  color: '#ff7a00',
-},
-  deliveryAddressRow: { flexDirection: 'row', alignItems: 'center', marginTop: 1 },
-  deliveryToHome:    { fontSize: 12, color: '#111', fontWeight: '700' },
-  deliveryAddress:   { fontSize: 12, color: '#111', maxWidth: 128 },
-  deliveryChevron:   { fontSize: 11, color: '#111' },
-
-  // Shared white bordered circle button (topBar + searchRow)
- iconCircle: {
-   width: 40,
-   height: 40,
-   borderRadius: 20,
-   borderWidth: 1.5,
-   borderColor: '#d0d0d0',
-   backgroundColor: '#ffffff',
-   justifyContent: 'center',
-   alignItems: 'center',
-   zIndex: 10, // 🔥 VERY IMPORTANT
-   elevation: 5, // Android fix
- },
-  // Hamburger lines inside circle
-  burger: {
-    width:        16,
-    height:       2,
-    borderRadius: 1,
-    backgroundColor: '#444',
-    marginVertical:  2,
+  deliveryBlock: {
+    flex: 1,
+    marginRight: 10,
   },
 
-  // ── Search Row ─────────────────────────────────────────────────────────────
- searchRow: {
-   flexDirection: 'row',
-   alignItems: 'center',
-   paddingHorizontal: 16,
-   paddingBottom: 12,
- },
- searchPill: {
-   flex: 1,
-   flexDirection: 'row',
-   alignItems: 'center',
-   backgroundColor: '#f3eaea',   // 🔥 light pink/beige
-   borderRadius: 30,
-   paddingHorizontal: 16,
-   height: 48,                   // 🔥 fixed height
-   borderWidth: 1,
-   borderColor: '#e5dede',
- },
-  searchMag:   { fontSize: 15, marginRight: 8 },
+  // ✅ CHANGE: white bold text on dark background
+  deliveryMinutes: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#FFFFFF',             // ✅ white
+  },
+  deliveryAddressRow: { flexDirection: 'row', alignItems: 'center', marginTop: 2 },
+
+  // ✅ CHANGE: address text white on dark bg
+  deliveryToHome:  { fontSize: 13, color: '#FFFFFF', fontWeight: '700' },
+  deliveryAddress: { fontSize: 13, color: '#FFFFFF', maxWidth: 148 },
+  deliveryChevron: { fontSize: 12, color: '#FFFFFF' },
+
+  // ✅ CHANGE: Profile icon circle (white bg) matching Figma top-right avatar
+  iconCircle: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#FFFFFF',   // ✅ white circle
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    elevation: 5,
+  },
+
+  // ── Search Row  ✅ CHANGE: sits below blue header, white pill on white bg
+  searchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    backgroundColor: '#0047AB',   // ✅ same navy — search pill sits inside header area
+  },
+  searchPill: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',   // ✅ white pill on dark bg (matches Figma)
+    borderRadius: 30,
+    paddingHorizontal: 16,
+    height: 46,
+    borderWidth: 0,
+  },
+  searchMag:   { fontSize: 15, marginRight: 8, color: '#999' },
   searchInput: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 14,
     color: '#333',
   },
 
   // ── Banner ─────────────────────────────────────────────────────────────────
   bannerWrap: {
-    marginHorizontal: 14,
-    marginBottom:     4,
-    borderRadius:     18,
+    marginHorizontal: 0,
+    marginTop:        0,
+    marginBottom:     0,
+    borderRadius:     0,
     overflow:         'hidden',
     height:           165,
+    width:            '100%',
   },
   bannerImg: { width: '100%', height: '100%' },
 
@@ -455,7 +494,8 @@ deliveryMinutes: {
     marginBottom:   10,
   },
   sectionTitle: { fontSize: 16, fontWeight: '700', color: '#111' },
-  seeAll:       { fontSize: 13, color: '#ff7a00', fontWeight: '600' },
+  // ✅ CHANGE: "See All" text now matches Figma orange
+  seeAll: { fontSize: 13, color: '#0047AB', fontWeight: '600' },
 
   // ── Favourite Cards ────────────────────────────────────────────────────────
   favCard: {
@@ -471,13 +511,13 @@ deliveryMinutes: {
     shadowOffset:    { width: 0, height: 2 },
   },
 
-  // Orange discount badge (top-left corner)
+  // ✅ CHANGE: badge now teal/green to match Figma "5% off" badge colour
   badge: {
     position:         'absolute',
     top:              8,
     left:             8,
     zIndex:           2,
-    backgroundColor:  '#ff7a00',
+    backgroundColor:  '#0047AB',  // ✅ green badge (matching Figma)
     borderRadius:     6,
     paddingHorizontal: 6,
     paddingVertical:   2,
@@ -487,7 +527,8 @@ deliveryMinutes: {
   favImg:    { width: '100%', height: 82, resizeMode: 'contain', marginBottom: 6 },
   favName:   { fontSize: 12, fontWeight: '600', color: '#111', lineHeight: 16 },
   favWeight: { fontSize: 11, color: '#aaa', marginTop: 1 },
-  favMrp:    { fontSize: 11, color: '#bbb', textDecorationLine: 'line-through', marginTop: 1 },
+  // ✅ CHANGE: MRP strikethrough in red to match Figma
+  favMrp:    { fontSize: 11, color: '#ff4444', textDecorationLine: 'line-through', marginTop: 1 },
 
   favBottom: {
     flexDirection:  'row',
@@ -495,18 +536,18 @@ deliveryMinutes: {
     alignItems:     'center',
     marginTop:      6,
   },
-  favPrice: { fontSize: 14, fontWeight: '800', color: '#111' },
+  favPrice: { fontSize: 14, fontWeight: '800', color: '#0047AB' },
+
+  // ✅ CHANGE: + button is now a clean borderless circle matching Figma style
   favPlusBtn: {
     width:           28,
     height:          28,
-    borderRadius:    8,
-    borderWidth:     1.5,
-    borderColor:     '#e0e0e0',
+    borderRadius:    14,
+    backgroundColor: '#F5F5F5',
     justifyContent:  'center',
     alignItems:      'center',
-    backgroundColor: '#fff',
   },
-  favPlusText: { fontSize: 20, color: '#ff7a00', fontWeight: '700', lineHeight: 24 },
+  favPlusText: { fontSize: 22, color: '#0047AB', fontWeight: '400', lineHeight: 26 },
 
   // ── Category Grid ──────────────────────────────────────────────────────────
   catCell: {
@@ -515,17 +556,19 @@ deliveryMinutes: {
     marginHorizontal: 3,
     marginBottom:   14,
   },
+
+  // ✅ CHANGE: category box now fully circular with light grey-blue tint (matches Figma)
   catBox: {
-    width:           68,
-    height:          68,
-    backgroundColor: '#e0e0e0',
-    borderRadius:    16,
+    width:           72,
+    height:          72,
+    backgroundColor: '#C1D8FF',   // ✅ light blue-grey tint (Figma category tile bg)
+    borderRadius:    36,           // ✅ circular
     justifyContent:  'center',
     alignItems:      'center',
-    marginBottom:    5,
+    marginBottom:    6,
     overflow:        'hidden',
   },
-  catImg:   { width: 56, height: 56, resizeMode: 'contain' },
+  catImg:   { width: 52, height: 52, resizeMode: 'contain' },
   catLabel: {
     fontSize:        10.5,
     textAlign:       'center',
@@ -541,13 +584,13 @@ deliveryMinutes: {
     alignItems:       'center',
     paddingHorizontal: 12,
     paddingVertical:   12,
-    backgroundColor:  '#fff',
+    backgroundColor:  '#0047AB',  // ✅ matches main header blue
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
-  backBtn:       { fontSize: 22, marginRight: 10, color: '#333' },
-  catHeaderTitle: { fontWeight: '700', fontSize: 16, color: '#111' },
-  catHeaderSub:   { fontSize: 12, color: '#ff7a00' },
+  backBtn:        { fontSize: 22, marginRight: 10, color: '#FFFFFF' },  // ✅ white back arrow
+  catHeaderTitle: { fontWeight: '700', fontSize: 16, color: '#FFFFFF' }, // ✅ white title
+  catHeaderSub:   { fontSize: 12, color: '#FFD580' },                    // ✅ warm yellow address
 
   filterRow: {
     flexDirection:    'row',
@@ -585,13 +628,13 @@ deliveryMinutes: {
   productPriceRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 },
   addBtn: {
     borderWidth:     1.5,
-    borderColor:     '#ff7a00',
+    borderColor:     '#0047AB',   // ✅ navy border to match theme
     borderRadius:    10,
     paddingHorizontal: 14,
     paddingVertical:   4,
     backgroundColor: '#fff',
   },
-  addBtnText: { color: '#ff7a00', fontWeight: 'bold', fontSize: 13 },
+  addBtnText: { color: '#0047AB', fontWeight: 'bold', fontSize: 13 },  // ✅ navy text
 
   // ── Cart Bar ───────────────────────────────────────────────────────────────
   cartBar: {
@@ -636,18 +679,18 @@ deliveryMinutes: {
     backgroundColor: 'rgba(0,0,0,0.25)',
     justifyContent: 'flex-start',
   },
-profileCard: {
-  position: 'absolute',
-  top: 80,
-  right: 14,
-  width: 280,
-  backgroundColor: '#fff',
-  borderRadius: 20,
-  padding: 20,
-  elevation: 20,  // 🔥 increase
-  zIndex: 9999,   // 🔥 ADD THIS
-  alignItems: 'center',
-},
+  profileCard: {
+    position: 'absolute',
+    top: 80,
+    right: 14,
+    width: 280,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 20,
+    elevation: 20,
+    zIndex: 9999,
+    alignItems: 'center',
+  },
   closeBtn: {
     position:        'absolute',
     right:           10,
@@ -664,12 +707,11 @@ profileCard: {
     width:           80,
     height:          80,
     borderRadius:    40,
-
     justifyContent:  'center',
     alignItems:      'center',
     marginTop:       10,
   },
-  profileName: { marginTop: 10, fontSize: 17, fontWeight: '700', color: '#ff7a00' },
+  profileName: { marginTop: 10, fontSize: 17, fontWeight: '700', color: '#0047AB' }, // ✅ navy name
   divider:     { width: '100%', height: 1, backgroundColor: '#eee', marginVertical: 12 },
   menuBtn: {
     width:           '100%',
@@ -680,28 +722,4 @@ profileCard: {
     elevation:       1,
   },
   menuBtnText: { fontSize: 15, fontWeight: '600', textAlign: 'center', color: '#111' },
-
-  topBar: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 6,
-    paddingBottom: 8,
-  },
-
-  topRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 2,
-  },
-
-bottomRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-},
-
-deliveryBlock: {
-  flex: 1,
-  marginRight: 10, // 🔥 THIS FIXES TOUCH ISSUE
-},
 });

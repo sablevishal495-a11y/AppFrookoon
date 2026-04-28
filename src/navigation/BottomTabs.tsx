@@ -81,12 +81,12 @@ const BottomTabs = () => {
 
           return <Icon name={iconName} size={24} color={color} />;
         },
-        tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'white',
         tabBarStyle: {
-          backgroundColor: 'white',
+          backgroundColor: '#0047AB',
           borderTopWidth: 1,
-          borderTopColor: '#e0e0e0',
+          borderTopColor: '#0047AB',
           height: 70,
           paddingBottom: 10,
           paddingTop: 5,
@@ -120,11 +120,11 @@ const BottomTabs = () => {
           width: 55,
           height: 55,
           borderRadius: 27.5,
-          backgroundColor: focused ? '#007AFF' : 'white',
+          backgroundColor: focused ? '#0047AB' : '#0047AB',
           justifyContent: 'center',
           alignItems: 'center',
           borderWidth: 1,
-          borderColor: focused ? '#007AFF' : '#E0E0E0',
+          borderColor: focused ? 'white' : '#E0E0E0',
           elevation: 8,
           shadowColor: '#000',
           shadowOpacity: 0.2,
@@ -135,7 +135,7 @@ const BottomTabs = () => {
         <Icon
           name="storefront"
           size={24}
-          color={focused ? '#fff' : 'gray'}
+          color={focused ? '#fff' : 'white'}
         />
       </View>
     ),

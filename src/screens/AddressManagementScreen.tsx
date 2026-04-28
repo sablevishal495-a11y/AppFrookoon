@@ -389,19 +389,19 @@ const cardStyles = StyleSheet.create({
     gap: 12,
   },
   wrapSelected: {
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
     backgroundColor: '#fffaf6',
   },
   iconBox: {
     width: 44,
     height: 44,
     borderRadius: 14,
-    backgroundColor: '#fff5ee',
+    backgroundColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
   },
   iconBoxSelected: {
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
   },
   title: {
     fontSize: 14,
@@ -419,18 +419,18 @@ const cardStyles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#ddd',
+    borderColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
   },
   radioSelected: {
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
   },
   radioDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
   },
 });
 
@@ -514,7 +514,7 @@ const modalStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 52,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#0047AB',
     borderRadius: 14,
     paddingHorizontal: 14,
     borderWidth: 1.5,
@@ -556,7 +556,7 @@ const modalStyles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 10,
-    backgroundColor: '#fff5ee',
+    backgroundColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -568,7 +568,7 @@ const modalStyles = StyleSheet.create({
   },
   saveBtn: {
     height: 54,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -663,7 +663,7 @@ const styles = StyleSheet.create({
   },
   addBtn: {
     height: 54,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'center',

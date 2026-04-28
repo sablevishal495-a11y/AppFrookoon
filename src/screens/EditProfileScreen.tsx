@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
     height: 98,
     borderRadius: 49,
     borderWidth: 3,
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
     zIndex: 0,
   },
 
@@ -391,19 +391,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 20,
     borderWidth: 1.5,
-    borderColor: '#ff7a00',
+    borderColor: '#0047AB',
     backgroundColor: '#fff9f5',
   },
 
   changePicText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#ff7a00',
+    color: '#0047AB',
   },
 
   // Form
   form: {
     paddingHorizontal: 20,
+
   },
 
   matchText: {
@@ -419,6 +420,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
     gap: 12,
+
   },
 
   cancelBtn: {
@@ -442,7 +444,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 52,
     borderRadius: 14,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

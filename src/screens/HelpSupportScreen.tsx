@@ -356,7 +356,7 @@ export default HelpSupportScreen;
 // ─── FAQ Styles ───────────────────────────────────────────────────────────────
 const faqStyles = StyleSheet.create({
   wrap: {
-    backgroundColor: '#fff',
+    backgroundColor: '#0047AB',
     borderRadius: 16,
     marginBottom: 10,
     overflow: 'hidden',
@@ -383,13 +383,13 @@ const faqStyles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#ff7a00',
+    backgroundColor: 'white',
     flexShrink: 0,
   },
   qText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#1a1a1a',
+    color: 'white',
     flex: 1,
     lineHeight: 20,
   },
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
 
   // Hero
   heroBanner: {
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     paddingHorizontal: 20,
     paddingTop: 28,
     paddingBottom: 32,
@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
   },
-  tabActive:     { backgroundColor: '#ff7a00' },
+  tabActive:     { backgroundColor: '#0047AB' },
   tabText:       { fontSize: 14, fontWeight: '700', color: '#ff7a00' },
   tabTextActive: { color: '#fff' },
 
@@ -607,7 +607,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: '#e6f9ee',
+    backgroundColor: '#0047AB',
     borderRadius: 10,
     padding: 10,
     marginBottom: 12,
@@ -616,7 +616,7 @@ const styles = StyleSheet.create({
 
   submitBtn: {
     height: 50,
-    backgroundColor: '#ff7a00',
+    backgroundColor: '#0047AB',
     borderRadius: 14,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     gap: 4,
   },
-  footerText:    { fontSize: 16, fontWeight: '900', color: '#ff7a00' },
+  footerText:    { fontSize: 16, fontWeight: '900', color: '#0047AB' },
   footerSub:     { fontSize: 12, color: '#aaa' },
   footerVersion: { fontSize: 11, color: '#ddd', marginTop: 4 },
 });
