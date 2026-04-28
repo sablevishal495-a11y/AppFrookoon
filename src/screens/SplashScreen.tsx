@@ -1,16 +1,22 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Animated, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Animated,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 
 const { height } = Dimensions.get('window');
 
 const SplashScreen = ({ navigation }) => {
-  const logoOpacity = useRef(new Animated.Value(0)).current;
-  const logoScale = useRef(new Animated.Value(0.7)).current;
-  const textOpacity = useRef(new Animated.Value(0)).current;
-  const textTranslateY = useRef(new Animated.Value(10)).current;
+  const logoOpacity    = useRef(new Animated.Value(0)).current;
+  const logoScale      = useRef(new Animated.Value(0.7)).current;
+  const textOpacity    = useRef(new Animated.Value(0)).current;
+  const textTranslateY = useRef(new Animated.Value(14)).current;
 
   useEffect(() => {
-    // Step 1: Logo fades + scales in
+    // Phase 1: Logo fades + springs in
     Animated.parallel([
       Animated.timing(logoOpacity, {
         toValue: 1,
@@ -24,7 +30,7 @@ const SplashScreen = ({ navigation }) => {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      // Step 2: Text slides up and fades in after logo settles
+      // Phase 2: Brand name + tagline slide up after logo settles
       Animated.parallel([
         Animated.timing(textOpacity, {
           toValue: 1,
@@ -39,17 +45,18 @@ const SplashScreen = ({ navigation }) => {
       ]).start();
     });
 
+    // Navigate to Login after everything is done
     const timer = setTimeout(() => {
       navigation.replace('Login');
-    }, 3500);
+    }, 3200);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.centerGroup}>
-        {/* Logo icon — replace with your actual logo image */}
+      <View style={styles.group}>
+
         <Animated.Image
           source={require('../assets/logo.png')}
           style={[
@@ -62,18 +69,19 @@ const SplashScreen = ({ navigation }) => {
           resizeMode="contain"
         />
 
-        {/* Brand name */}
-        <Animated.Text
-          style={[
-            styles.brandText,
-            {
-              opacity: textOpacity,
-              transform: [{ translateY: textTranslateY }],
-            },
-          ]}
+        <Animated.View
+          style={{
+            opacity: textOpacity,
+            transform: [{ translateY: textTranslateY }],
+            alignItems: 'center',
+          }}
         >
-          Frookoon
-        </Animated.Text>
+          <Text style={styles.brand}>frookoon</Text>
+          <Text style={styles.tagline}>
+            Groceries, your way—pickup or delivery
+          </Text>
+        </Animated.View>
+
       </View>
     </View>
   );
@@ -84,23 +92,30 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3D4EF5', // the blue from the video
+    backgroundColor: '#3D4EF5',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  centerGroup: {
+  group: {
     alignItems: 'center',
-    marginTop: height * 0.08, // nudges the group slightly below true center, matching the video
+    marginTop: -height * 0.05,
   },
   logo: {
-    width: 240,
-    height: 240,
-    marginBottom: 16,
+    width: 200,
+    height: 200,
+    marginBottom: 12,
   },
-  brandText: {
-    fontSize: 36,
+  brand: {
+    fontSize: 34,
     fontWeight: '700',
     color: '#FFFFFF',
-    letterSpacing: 0.5,
+    letterSpacing: 0.3,
+    marginBottom: 10,
+  },
+  tagline: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.75)',
+    textAlign: 'center',
+    paddingHorizontal: 40,
   },
 });
