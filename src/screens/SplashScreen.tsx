@@ -58,7 +58,7 @@ const SplashScreen = ({ navigation }) => {
       <View style={styles.group}>
 
         <Animated.Image
-          source={require('../assets/logo.png')}
+          source={require('../assets/logoo.png')}
           style={[
             styles.logo,
             {
@@ -92,7 +92,7 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3D4EF5',
+    backgroundColor: '#2F5BFF',
     justifyContent: 'center',
     alignItems: 'center',
   },

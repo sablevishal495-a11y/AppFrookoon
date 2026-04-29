@@ -55,7 +55,7 @@ const { saveUser } = useUser();
       <Text style={styles.header}>Verify OTP</Text>
       <Text style={styles.title}>Verify OTP</Text>
 
-      <Text>Send To +91-{phone}</Text>
+      <Text style={styles.sendTo}>Send To +91-{phone}</Text>
 
       {/* OTP Boxes */}
       <View style={styles.otpRow}>
@@ -90,11 +90,11 @@ const { saveUser } = useUser();
      >
        <Text style={styles.resend}>
          {timer === 0 ? (
-           <Text style={{ color: '#ff7a00' }}>Resend OTP</Text>
+           <Text style={{ color: '#000000' }}>Resend OTP</Text>
          ) : (
            <>
              Resend OTP in{' '}
-             <Text style={{ color: '#ff7a00' }}>
+             <Text style={{ color: '#2F5BFF' }}>
                00:{timer.toString().padStart(2, '0')}
              </Text>
            </>
@@ -144,15 +144,22 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    color: '#ff7a00',
+    color: '#2F5BFF',
+    fontSize: 17,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: -30,
   },
 
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginTop: 30,
+    marginTop: 80,
+  },
+
+  sendTo: {
+    marginTop: 25,
+    fontSize: 14,
+    color: '#555',
   },
 
   otpRow: {
@@ -183,13 +190,14 @@ const styles = StyleSheet.create({
   },
 
   resend: {
-    marginTop: 30,
+    marginTop: 40,
+    color: '',
     fontSize: 15,
   },
 
   verifyBtn: {
-    backgroundColor: '#2DBE60',
-    marginTop: 40,
+    backgroundColor: '#FF8C00',
+    marginTop: 50,
     width: '80%',
     padding: 15,
     borderRadius: 10,
@@ -203,7 +211,7 @@ const styles = StyleSheet.create({
   },
 
   change: {
-    marginTop: 20,
+    marginTop: 30,
     color: '#2DBE60',
     fontSize: 16,
   },
