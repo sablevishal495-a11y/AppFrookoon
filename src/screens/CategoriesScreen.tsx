@@ -140,7 +140,7 @@ const { cartItems, addToCart } = useCart();
                     }}
                   >
 
-                    <Text style={{ color: '#ff7a00', fontWeight: 'bold' }}>
+                    <Text style={{ color: '#2F5BFF', fontWeight: 'bold' }}>
                       ADD
                     </Text>
                   </TouchableOpacity>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
 
   deliveryText: {
-    color: '#ff7a00',
+    color: '#2F5BFF',
     fontSize: 12,
   },
 
@@ -296,7 +296,7 @@ productCard: {
 
  addBtnOverlay: {
    borderWidth: 1,
-   borderColor: '#ff7a00',
+   borderColor: '#2F5BFF',
    borderRadius: 8,
    paddingVertical: 6,
    paddingHorizontal: 16,
@@ -351,7 +351,7 @@ cartBar: {
   bottom: 60,
   alignSelf: 'center',
   width: '50%',
-  backgroundColor: '#f4c27a',
+  backgroundColor: '#C1DBFF',
   borderRadius: 30,
   flexDirection: 'row',
   alignItems: 'center',
@@ -377,7 +377,7 @@ cartSub: {
 },
 
 cartBtn: {
-  backgroundColor: '#ff7a00',
+  backgroundColor: '#0047AB',
   width: 36,
   height: 36,
   borderRadius: 18,
@@ -386,7 +386,7 @@ cartBtn: {
 },
 activeBar: {
   width: 4,
-  backgroundColor: '#ff7a00',
+  backgroundColor: '#2F5BFF',
   borderTopRightRadius: 4,
   borderBottomRightRadius: 4,
 },

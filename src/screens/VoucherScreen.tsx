@@ -54,7 +54,7 @@ const VoucherScreen = ({ navigation }: any) => {
         <Text style={styles.title}>Voucher</Text>
       </View>
 
-      {/* Voucher Input */}
+      {/* Voucher Input*/}
       <Text style={styles.subtitle}>
         Enter 16 digit code and 6 digit pin to claim your voucher
       </Text>

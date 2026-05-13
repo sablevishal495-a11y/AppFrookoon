@@ -71,7 +71,7 @@ const ShopsScreen = ({ navigation }) => {
           <Text style={{ fontWeight: 'bold' }}>X</Text>
         </View>
 
-        {/* LOVEABLE DISCOUNTS */}
+        {/*LOVEABLE DISCOUNTS*/}
         <Text style={styles.sectionTitle}>Loveable Discounts !</Text>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

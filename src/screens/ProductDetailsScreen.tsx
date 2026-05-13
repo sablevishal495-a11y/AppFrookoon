@@ -78,7 +78,7 @@ const brands = [
 
           {/* Back */}
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="chevron-left" size={22} color="#FF6B00" />
+            <Icon name="chevron-left" size={22} color="#0047AB" />
           </TouchableOpacity>
 
           {/* Location */}
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
   carouselImage: { width: '100%', height: '100%', resizeMode: 'contain' },
   dotsRow: { flexDirection: 'row', justifyContent: 'center', gap: 6, marginTop: 12 },
   dot:       { width: 7,  height: 7,  borderRadius: 4, backgroundColor: '#ddd' },
-  dotActive: { width: 18, height: 7,  borderRadius: 4, backgroundColor: ORANGE },
+  dotActive: { width: 18, height: 7,  borderRadius: 4, backgroundColor: '#0047AB' },
 
   /* CARD */
   card: {
@@ -436,15 +436,15 @@ const styles = StyleSheet.create({
   variantChip: {
     flex: 1,
     borderWidth: 1.5,
-    borderColor: '#E0E0E0',
+    borderColor: '#0047AB',
     borderRadius: 8,
     paddingHorizontal: 8,
     paddingTop: 22,
     paddingBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7ECFA',
     position: 'relative',
   },
-  variantChipActive: { borderColor: ORANGE, backgroundColor: '#fff4ee' },
+  variantChipActive: { borderColor: '#0047AB', backgroundColor: '#F7ECFA' },
 
   /* ── CIRCULAR STAMP (matches Image 1) ── */
   circleStamp: {
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: ORANGE,
+    backgroundColor: '#0047AB',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
@@ -472,17 +472,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', paddingVertical: 8,
   },
   priceLeft:    { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  currentPrice: { fontSize: 20, fontWeight: '800', color: ORANGE },
+  currentPrice: { fontSize: 20, fontWeight: '800', color: '#0047AB' },
   oldPrice:     { fontSize: 14, color: '#aaa', textDecorationLine: 'line-through' },
   offBadge: {
-    backgroundColor: '#e6f4ea', borderRadius: 4,
+    backgroundColor: '#F7ECFA', borderRadius: 4,
     paddingHorizontal: 7, paddingVertical: 3,
   },
   offBadgeText: { fontSize: 11, fontWeight: '700', color: '#2e7d32' },
 
   /* ADD BUTTON */
   addBtn: {
-    backgroundColor: ORANGE, borderRadius: 8,
+    backgroundColor: '#0047AB', borderRadius: 8,
     paddingHorizontal: 30, paddingVertical: 13,
   },
   addBtnText: { color: '#fff', fontSize: 15, fontWeight: '700', letterSpacing: 1.5 },
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
   /* QTY CONTROL — used in price row AND bottom bar */
   qtyControl: {
     flexDirection: 'row',
-    backgroundColor: ORANGE,
+    backgroundColor: '#0047AB',
     borderRadius: 8,
     alignItems: 'center',
     paddingHorizontal: 14,
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   expiryBoxLabel: { fontSize: 9,  fontWeight: '700', color: '#888', letterSpacing: 0.3 },
-  expiryBoxVal:   { fontSize: 12, fontWeight: '700', color: '#111', marginTop: 2 },
+  expiryBoxVal:   { fontSize: 12, fontWeight: '700', color: '#0047AB', marginTop: 2 },
 
   infoGrid: { flexDirection: 'row' },
   infoCol:  { flex: 1 },
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 6, right: 6,
     width: 28, height: 28, borderRadius: 14,
-    backgroundColor: ORANGE,
+    backgroundColor: '#0047AB',
     justifyContent: 'center', alignItems: 'center',
     zIndex: 1, elevation: 2,
   },
@@ -549,13 +549,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between',
   },
   freqOldPrice: { fontSize: 11, color: '#aaa', textDecorationLine: 'line-through' },
-  freqPrice:    { fontSize: 13, fontWeight: '700', color: '#111' },
+  freqPrice:    { fontSize: 13, fontWeight: '700', color: '#0047AB' },
   freqAddBtn: {
     width: 28, height: 28, borderRadius: 6,
-    borderWidth: 1.5, borderColor: ORANGE,
+    borderWidth: 1.5, borderColor: '#F1F1F1',
     justifyContent: 'center', alignItems: 'center',
   },
-  freqAddIcon: { color: ORANGE, fontSize: 20, lineHeight: 22, fontWeight: '300' },
+  freqAddIcon: { color: '#0047AB', fontSize: 20, lineHeight: 22, fontWeight: '300' },
   freqQtyBox: {
     flexDirection: 'row', backgroundColor: ORANGE, borderRadius: 6,
     alignItems: 'center', paddingHorizontal: 4, paddingVertical: 2, gap: 4,
@@ -571,7 +571,7 @@ viewCartStrip: {
   right: 16,
   paddingHorizontal: 16,
   height: 56,
-  backgroundColor: ORANGE,
+  backgroundColor: '#0047AB',
 
   flexDirection: 'row',
   alignItems: 'center',
